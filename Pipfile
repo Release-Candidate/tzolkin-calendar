@@ -18,6 +18,9 @@ build = "*"
 setuptools = "*"
 sphinx-rtd-theme = "*"
 twine = "*"
+hypothesis = "*"
+pytest-xdist = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.9"
