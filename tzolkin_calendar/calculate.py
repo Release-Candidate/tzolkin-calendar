@@ -280,7 +280,7 @@ def __backward(
         ret_val (List[datetime.date]): The list of found dates with the same Tzolkin date.
     """
     results = 0
-    while results < num_results:
+    while results < num_results - 1:
         ret_val.append(lastTzolkin(tzolkin=tzolkin, starting=ret_val[-1]))
         results += 1
 
@@ -297,7 +297,7 @@ def __forward(
         ret_val (List[datetime.date]): The list of found dates with the same Tzolkin date.
     """
     results = 0
-    while results < num_results:
+    while results < num_results - 1:
         ret_val.append(nextTzolkin(tzolkin=tzolkin, starting=ret_val[-1]))
         results += 1
 

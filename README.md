@@ -20,6 +20,7 @@ Information about the installation and usage you find at [Installation and Usage
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
     - [Usage](#usage)
+    - [More information](#more-information)
   - [Contributing](#contributing)
     - [Report Issues (Bugs and Feature Requests)](#report-issues-bugs-and-feature-requests)
     - [Changing the Documentation and Source Code](#changing-the-documentation-and-source-code)
@@ -62,6 +63,10 @@ python -m pip install tzolkin-calendar
 More information about using pip you get at [pip Quickstart](https://pip.pypa.io/en/stable/quickstart/)
 
 ### Usage
+
+### More information
+
+Detailed information is available at the [documentation website](https://tzolkin-calendar.readthedocs.io/en/latest/).
 
 ## Contributing
 

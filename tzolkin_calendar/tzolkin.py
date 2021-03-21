@@ -61,7 +61,7 @@ class Tzolkin:
     def __init__(
         self,
         number: int,
-        name_str: Optional[TzolkinName] = None,
+        name_str: Optional[str] = None,
         name_number: Optional[int] = None,
     ) -> None:
         """Generate a Tzolkin date, from the tzolkin day number `number` and the
@@ -134,7 +134,7 @@ class Tzolkin:
         Returns:
             Tzolkin: The gregorion date `date_str` converted to a Tzolkin date.
         """
-        date = datetime.datetime.strptime(date_string=date_str, format=fmt).date()
+        date = datetime.datetime.strptime(date_str, fmt).date()
         tzolkin = gregorian2tzolkin(date)
 
         ret_val = cls(number=tzolkin.number, name_number=tzolkin.name)
@@ -385,7 +385,7 @@ class Tzolkin:
 
     ############################################################################
     @staticmethod
-    def getNameNumberFromName(name_str: TzolkinName) -> int:
+    def getNameNumberFromName(name_str: str) -> int:
         """Return the day name's number (between 1 and 20) of the Tzolkin day name.
         Imix yields the number 1, Ikʼ 2, ... , Ajaw yields 20.
 

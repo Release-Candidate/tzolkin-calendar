@@ -7,46 +7,25 @@
 ###############################################################################
 """The main entry point of the program, does nothing but call the 'real' main function `main`."""
 
-from __future__ import annotations
+# This is just a wrapper to catch when running using python 2. The real `main`
+# is in `main.py`.
 
-import tzolkin_calendar
-from tzolkin_calendar.calculate import getTzolkinDiff
-from tzolkin_calendar.tzolkin import Tzolkin
+from __future__ import print_function
 
+import platform
+import sys
 
-################################################################################
-def main() -> None:
-    """Run the main function of the program."""
-    print(tzolkin_calendar.DayGlyphs)
-    print(tzolkin_calendar.TzolkinDate(number=4, name=6))
+if sys.version_info.major < 3 or sys.version_info.minor < 9:
     print(
-        getTzolkinDiff(
-            start=tzolkin_calendar.TzolkinDate(number=4, name=7),
-            end=tzolkin_calendar.TzolkinDate(number=3, name=19),
-        )
+        "ERROR: Python version is too old, I need at least Python 3.9, this has a version of {version}".format(
+            version=platform.python_version()
+        ),
+        file=sys.stderr,
     )
-    print(
-        getTzolkinDiff(
-            start=tzolkin_calendar.TzolkinDate(number=8, name=11),
-            end=tzolkin_calendar.TzolkinDate(number=11, name=1),
-        )
-    )
-    print(Tzolkin(number=4, name_number=7))
-    print(Tzolkin(number=4, name_str="Ebʼ"))
-    try:
-        print(Tzolkin(number=4, name_str="BLA"))
-    except tzolkin_calendar.TzolkinException as excp:
-        print(excp)
-    try:
-        print(Tzolkin(number=4, name_number=87))
-    except tzolkin_calendar.TzolkinException as excp:
-        print(excp)
-
-    try:
-        print(Tzolkin(number=14, name_number=6))
-    except tzolkin_calendar.TzolkinException as excp:
-        print(excp)
+    sys.exit(1)
 
 
 if __name__ == "__main__":
-    main()
+    from tzolkin_calendar import main
+
+    main.main()

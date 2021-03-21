@@ -67,10 +67,15 @@ class TzolkinDate(NamedTuple):
             str: The Tzolkin date as day number and day name and the day name
                  Unicode glyph..
         """
-        return "{number} {name} ({glyph})".format(
+        # TODO if Unicode adds the Tzolkin day name glyphs, add them here!
+        # return "{number} {name} ({glyph})".format(
+        #     number=day_numbers[self.number],
+        #     name=day_names[self.name],
+        #     glyph=day_glyphs[self.name],
+        # )
+        return "{number} {name}".format(
             number=day_numbers[self.number],
             name=day_names[self.name],
-            glyph=day_glyphs[self.name],
         )
 
 
