@@ -16,7 +16,7 @@ from tzolkin_calendar.tzolkin import Tzolkin
 
 ################################################################################
 def main() -> None:
-    """Main function of the program."""
+    """Run the main function of the program."""
     print(tzolkin_calendar.DayGlyphs)
     print(tzolkin_calendar.TzolkinDate(number=4, name=6))
     print(
