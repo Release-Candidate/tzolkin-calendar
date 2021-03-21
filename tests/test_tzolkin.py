@@ -125,6 +125,63 @@ def test_fromDate(gregorian: str, tzolkin: TzolkinDate) -> None:
     assert to_test.getDayNameNumber() == tzolkin.name  # nosec
 
 
+################################################################################
+@pytest.mark.parametrize(
+    "gregorian,tzolkin",
+    [
+        pytest.param(
+            "01.01.1800", local_reference_dates["01.01.1800"], id="01.01.1800"
+        ),
+        pytest.param(
+            "12.12.1926", local_reference_dates["12.12.1926"], id="12.12.1926"
+        ),
+        pytest.param(
+            "26.01.1958", local_reference_dates["26.01.1958"], id="26.01.1958"
+        ),
+        pytest.param(
+            "15.03.1967", local_reference_dates["15.03.1967"], id="15.03.1967"
+        ),
+        pytest.param(
+            "01.01.1970", local_reference_dates["01.01.1970"], id="01.01.1970"
+        ),
+        pytest.param(
+            "08.05.1975", local_reference_dates["08.05.1975"], id="08.05.1975"
+        ),
+        pytest.param(
+            "17.02.1978", local_reference_dates["17.02.1978"], id="17.02.1978"
+        ),
+        pytest.param(
+            "25.10.1986", local_reference_dates["25.10.1986"], id="25.10.1986"
+        ),
+        pytest.param(
+            "13.05.1992", local_reference_dates["13.05.1992"], id="13.05.1992"
+        ),
+        pytest.param(
+            "08.11.1997", local_reference_dates["08.11.1997"], id="08.11.1997"
+        ),
+        pytest.param(
+            "01.01.2000", local_reference_dates["01.01.2000"], id="01.01.2000"
+        ),
+        pytest.param(
+            "06.07.2005", local_reference_dates["06.07.2005"], id="06.07.2005"
+        ),
+        pytest.param(
+            "01.10.2017", local_reference_dates["01.10.2017"], id="01.10.2017"
+        ),
+        pytest.param(
+            "20.03.2021", local_reference_dates["20.03.2021"], id="20.03.2021"
+        ),
+    ],
+)
+def test_fromDateConst(gregorian: str, tzolkin: TzolkinDate) -> None:
+    """Test `Tzolkin`."""
+    gregorian_date = datetime.datetime.strptime(gregorian, USED_DATEFMT).date()
+    to_test = Tzolkin.fromDate(gregorian_date)
+    another = Tzolkin(number=tzolkin.number, name_str=day_names[tzolkin.name])
+    assert to_test.getDayNumber() == another.getDayNumber()  # nosec
+    assert to_test.getDayNameNumber() == another.getDayNameNumber()  # nosec
+
+
 @pytest.mark.parametrize(
     "gregorian,tzolkin",
     [
@@ -972,6 +1029,14 @@ def test_getNameNumberFromName() -> None:
 
 
 ################################################################################
+def test_getNameNumberFromNameExc() -> None:
+    """Test `Tzolkin.getNameNumberFromName`, raises excpention."""
+    with pytest.raises(TzolkinException) as excp:
+        Tzolkin.getNameNumberFromName(name_str="BLA")
+    assert excp  # nosec
+
+
+################################################################################
 def test_getTzolkinCalendar() -> None:
     """Test `Tzolkin.getTzolkinCalendar`."""
     calendar = Tzolkin.getTzolkinCalendar()
@@ -981,3 +1046,57 @@ def test_getTzolkinCalendar() -> None:
         assert calendar[key - 1] == "{number} {name}".format(  # nosec
             number=tzolkin_dict[key].number, name=day_names[tzolkin_dict[key].name]
         )
+
+
+################################################################################
+@pytest.mark.parametrize(
+    "gregorian,tzolkin",
+    [
+        pytest.param(
+            "01.01.1800", local_reference_dates["01.01.1800"], id="01.01.1800"
+        ),
+        pytest.param(
+            "12.12.1926", local_reference_dates["12.12.1926"], id="12.12.1926"
+        ),
+        pytest.param(
+            "26.01.1958", local_reference_dates["26.01.1958"], id="26.01.1958"
+        ),
+        pytest.param(
+            "15.03.1967", local_reference_dates["15.03.1967"], id="15.03.1967"
+        ),
+        pytest.param(
+            "01.01.1970", local_reference_dates["01.01.1970"], id="01.01.1970"
+        ),
+        pytest.param(
+            "08.05.1975", local_reference_dates["08.05.1975"], id="08.05.1975"
+        ),
+        pytest.param(
+            "17.02.1978", local_reference_dates["17.02.1978"], id="17.02.1978"
+        ),
+        pytest.param(
+            "25.10.1986", local_reference_dates["25.10.1986"], id="25.10.1986"
+        ),
+        pytest.param(
+            "13.05.1992", local_reference_dates["13.05.1992"], id="13.05.1992"
+        ),
+        pytest.param(
+            "08.11.1997", local_reference_dates["08.11.1997"], id="08.11.1997"
+        ),
+        pytest.param(
+            "01.01.2000", local_reference_dates["01.01.2000"], id="01.01.2000"
+        ),
+        pytest.param(
+            "06.07.2005", local_reference_dates["06.07.2005"], id="06.07.2005"
+        ),
+        pytest.param(
+            "01.10.2017", local_reference_dates["01.10.2017"], id="01.10.2017"
+        ),
+        pytest.param(
+            "20.03.2021", local_reference_dates["20.03.2021"], id="20.03.2021"
+        ),
+    ],
+)
+def test_print(gregorian: str, tzolkin: TzolkinDate) -> None:
+    """Test `Tzolkin.__repr__()`."""
+    to_test = Tzolkin.fromDateString(date_str=gregorian, fmt=USED_DATEFMT)
+    assert to_test.__repr__() == tzolkin.__repr__()  # nosec
