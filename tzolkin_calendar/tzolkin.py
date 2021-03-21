@@ -424,11 +424,7 @@ class Tzolkin:
         ret_val: List[str] = []
         tzolkin_list = makeLookUpTable()
         for tzolkin_date in tzolkin_list.values():
-            ret_val.append(
-                "{number} {name}".format(
-                    number=tzolkin_date.number, name=tzolkin_date.name
-                )
-            )
+            ret_val.append(tzolkin_date.__repr__())
 
         return ret_val
 

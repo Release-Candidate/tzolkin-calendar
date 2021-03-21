@@ -979,5 +979,5 @@ def test_getTzolkinCalendar() -> None:
     assert len(calendar) == 260  # nosec
     for key in tzolkin_dict:
         assert calendar[key - 1] == "{number} {name}".format(  # nosec
-            number=tzolkin_dict[key].number, name=tzolkin_dict[key].name
+            number=tzolkin_dict[key].number, name=day_names[tzolkin_dict[key].name]
         )
