@@ -1,0 +1,105 @@
+name: Windows 2019
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-src:
+    runs-on: windows-2019
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "13" # The JDK version to make available on the path.
+          java-package: jdk
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~\AppData\Local\pip\Cache
+          key: windows-2019-pip-pipenv
+          restore-keys: |
+            windows-2019-pip-pipenv
+
+      - name: Cache pipenv
+        uses: actions/cache@v2
+        with:
+          path: ~/.virtualenvs
+          key: windows-2019-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            windows-2019-pipenv-
+
+      - name: Setup pipenv
+        run: python -m pip install --upgrade pipenv
+
+      - name: Install dependencies using pipenv
+        run: python -m pipenv install --dev
+
+      # - name: Check if Working
+      #   shell: cmd
+      #   run: |
+      #     call pipenv shell
+      #     python -m tzolkin_calendar --version
+
+      - name: Run tzolkin-calendar
+        shell: cmd
+        run: |
+          call pipenv shell
+          python -m tzolkin_calendar
+
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Windows Buildnis Debug Log
+      #     path: log_file.txt
+
+  use-package:
+    runs-on: windows-2019
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: windows-2019-pip-buildnis
+          restore-keys: |
+            windows-2019-pip-buildnis
+
+      - name: Install buildnis package
+        run: python -m pip install --upgrade tzolkin-calendar
+
+      - name: Delete Source
+        shell: cmd
+        run: |
+          rmdir /S /Q tzolkin_calendar
+
+      # - name: Check if Pkg Working
+      #   run: |
+      #     python -m tzolkin_calendar --version
+
+      - name: Run tzolkin-calendar Pkg
+        shell: cmd
+        run: |
+          python -m tzolkin_calendar
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Windows Buildnis Pkg Debug Log
+      #     path: log_file.txt

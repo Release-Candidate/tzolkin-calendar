@@ -1,0 +1,132 @@
+name: Tests Windows 2019
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  tests-src:
+    runs-on: windows-2019
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "13" # The JDK version to make available on the path.
+          java-package: jdk
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~\AppData\Local\pip\Cache
+          key: windows-2019-pip-pipenv
+          restore-keys: |
+            windows-2019-pip-pipenv
+
+      - name: Cache pipenv
+        uses: actions/cache@v2
+        with:
+          path: ~/.virtualenvs
+          key: windows-2019-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            windows-2019-pipenv-
+
+      # install sphinx using pip on Windows, somehow the pipenv environment doesn't
+      # propagate to the command interpreter called from buildnis.
+      - name: Setup pipenv
+        run: python -m pip install --upgrade pipenv
+
+      - name: Install dependencies using pipenv
+        run: python -m pipenv install --dev
+
+      - name: Run Tests
+        shell: cmd
+        run: |
+          call pipenv shell
+          pipenv run pytest --hypothesis-show-statistics --cov=./ --cov-report=xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        if: ${{ always() }}
+        with:
+          token: ${{ secrets.CODECOV_SECRET }}
+          files: ./coverage.xml
+          directory: ./coverage/reports/
+          # flags: unittest
+          env_vars: OS,PYTHON
+          name: Windows-Test-Src
+          fail_ci_if_error: false
+          path_to_write_report: ./coverage/codecov_report.txt
+          verbose: true
+
+  tests-pkg:
+    runs-on: windows-2019
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "13" # The JDK version to make available on the path.
+          java-package: jdk
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~\AppData\Local\pip\Cache
+          key: windows-2019-pip-pipenv
+          restore-keys: |
+            windows-2019-pip-pipenv
+
+      - name: Cache pipenv
+        uses: actions/cache@v2
+        with:
+          path: ~/.virtualenvs
+          key: windows-2019-pipenv-package-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            windows-2019-pipenv-package-
+
+      - name: Setup pipenv
+        run: python -m pip install --upgrade pipenv
+
+      - name: Install dependencies using pipenv
+        run: |
+          python -m pipenv install --dev
+          python -m pipenv install tzolkin-calendar
+          python -m pipenv update
+
+      - name: Run Tests
+        shell: cmd
+        run: |
+          rmdir /S /Q tzolkin_calendar
+          call pipenv shell
+          pipenv run pytest --hypothesis-show-statistics --cov=./ --cov-report=xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        if: ${{ always() }}
+        with:
+          token: ${{ secrets.CODECOV_SECRET }}
+          files: ./coverage.xml
+          directory: ./coverage/reports/
+          # flags: unittest
+          env_vars: OS,PYTHON
+          name: Windows-Test-Pkg
+          fail_ci_if_error: false
+          path_to_write_report: ./coverage/codecov_report.txt
+          verbose: true

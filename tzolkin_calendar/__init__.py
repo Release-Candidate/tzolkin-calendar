@@ -12,6 +12,8 @@ from typing import Dict, Literal, NamedTuple
 
 __all__ = ["calculate", "tzolkin"]
 
+VERSION: str = "0.8.0"
+
 
 ################################################################################
 class TzolkinException(Exception):

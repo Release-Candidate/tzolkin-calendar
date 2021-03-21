@@ -1,0 +1,103 @@
+name: Mac OS X latest
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/Library/Caches/pip
+          key: ${{ runner.os }}-pip-pipenv
+          restore-keys: |
+            ${{ runner.os }}-pip-pipenv
+
+      - name: Cache pipenv
+        uses: actions/cache@v2
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pipenv-
+
+      - name: Setup pipenv
+        run: python -m pip install --upgrade pipenv
+
+      - name: Install dependencies using pipenv
+        run: |
+          cd $GITHUB_WORKSPACE && python -m pipenv install --dev
+
+      # - name: Check if Working
+      #   run: |
+      #     cd $GITHUB_WORKSPACE
+      #     pipenv run python -m tzolkin_calendar --version
+
+      - name: Run tzolkin-calendar
+        run: |
+          cd $GITHUB_WORKSPACE
+          pipenv run python -m tzolkin_calendar
+
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: OSX Buildnis Debug Log
+      #     path: log_file.txt
+
+  use-package:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-buildnis
+          restore-keys: |
+            ${{ runner.os }}-pip-buildnis
+
+      - name: Install buildnis package
+        run: python -m pip install --upgrade buildnis
+
+      - name: Install Sphinx
+        run: python -m pip install --upgrade sphinx
+
+      - name: Delete Source
+        run: |
+          cd $GITHUB_WORKSPACE
+          rm -rf tzolkin_calendar/
+
+      # - name: Check if Pkg Working
+      #   run: |
+      #     python -m tzolkin_calendar --version
+
+      - name: Run tzolkin-calendar Pkg
+        run: |
+          cd $GITHUB_WORKSPACE
+          python -m tzolkin_calendar
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: OSX Buildnis Pkg Debug Log
+      #     path: log_file.txt

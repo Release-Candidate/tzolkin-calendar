@@ -17,4 +17,4 @@ testpaths = [
 
 junit_family = "xunit2"
 
-junit_suite_name = "Buildnis Tests"
+junit_suite_name = "tzolkin-calendar Tests"
