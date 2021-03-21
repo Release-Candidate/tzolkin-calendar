@@ -21,6 +21,7 @@ twine = "*"
 hypothesis = "*"
 pytest-xdist = "*"
 pytest-cov = "*"
+colorama = "*"
 
 [requires]
 python_version = "3.9"
