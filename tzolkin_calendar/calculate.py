@@ -151,11 +151,35 @@ def __getDays(
     day1 = 0
     day2 = 0
     for day in table:
-        if table[day].name == start.name and table[day].number == start.number:
-            day1 = day
-        if table[day].name == end.name and table[day].number == end.number:
-            day2 = day
+        ret_val = __getDayIdx(start, table, day)
+        if ret_val:
+            day1 = ret_val
+        ret_val = __getDayIdx(end, table, day)
+        if ret_val:
+            day2 = ret_val
+
     return day1, day2
+
+
+################################################################################
+def __getDayIdx(tzolkin: TzolkinDate, table: Dict[int, TzolkinDate], day: int) -> int:
+    """Return the day's number in the Tzolkin year if the given day is the same as
+    the Tzolkin date.
+
+    Args:
+        tzolkin (TzolkinDate): The Tzolkin date to search for in the Tzolkin year.
+        table (Dict[int, TzolkinDate]): The dictionary of Tzolkin dates in a Tzolkin year.
+        day (int): The current key in the Tzolkin year dict to check.
+
+    Returns:
+        int: The index of the current date in the Tzolkin year if it is the same as
+                `tzolkin`, 0 else.
+    """
+    ret_val: int = 0
+    if table[day].name == tzolkin.name and table[day].number == tzolkin.number:
+        ret_val = day
+
+    return ret_val
 
 
 ################################################################################
