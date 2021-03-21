@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from typing import Dict, Literal, NamedTuple
 
-__all__ = ["calculate", "Tzolkin"]
+__all__ = ["calculate", "tzolkin"]
 
 
 ################################################################################
