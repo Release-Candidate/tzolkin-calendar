@@ -50,7 +50,7 @@ Functions:
 from __future__ import annotations
 
 import datetime
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 from tzolkin_calendar import (
     REFERENCE_DATES,
@@ -121,13 +121,7 @@ def getTzolkinDiff(start: TzolkinDate, end: TzolkinDate) -> int:
 
     table = makeLookUpTable()
 
-    day1 = 0
-    day2 = 0
-    for day in table:
-        if table[day].name == start.name and table[day].number == start.number:
-            day1 = day
-        if table[day].name == end.name and table[day].number == end.number:
-            day2 = day
+    day1, day2 = __getDays(start, end, table)
 
     num_elems = len(day_names) * len(day_numbers)
     if day2 > day1:
@@ -136,6 +130,32 @@ def getTzolkinDiff(start: TzolkinDate, end: TzolkinDate) -> int:
         ret_val = num_elems - day1 + day2
 
     return ret_val
+
+
+################################################################################
+def __getDays(
+    start: TzolkinDate, end: TzolkinDate, table: Dict[int, TzolkinDate]
+) -> Tuple[int, int]:
+    """Return the day indices of each day in the Tzolkin year.
+
+    Args:
+        start (TzolkinDate): The first Tzolkin date to get the day index of.
+        end (TzolkinDate): The second Tzolkin date to get the day index of.
+        table (Dict[int, TzolkinDate]): The dictionary containing all 260 Tzolkin days
+                                     of a Tzolkin year.
+
+    Returns:
+        Tuple[int, int]: the indices of the days `start` in the first element and
+                            `end` in the second.
+    """
+    day1 = 0
+    day2 = 0
+    for day in table:
+        if table[day].name == start.name and table[day].number == start.number:
+            day1 = day
+        if table[day].name == end.name and table[day].number == end.number:
+            day2 = day
+    return day1, day2
 
 
 ################################################################################
@@ -216,17 +236,46 @@ def tzolkin2gregorian(
                             `num_results`.
     """
     ret_val = [nextTzolkin(tzolkin=tzolkin, starting=start)]
-    results = 0
     if forward:
-        while results < num_results:
-            ret_val.append(nextTzolkin(tzolkin=tzolkin, starting=ret_val[-1]))
-            results += 1
+        __forward(tzolkin, num_results, ret_val)
     else:
-        while results < num_results:
-            ret_val.append(lastTzolkin(tzolkin=tzolkin, starting=ret_val[-1]))
-            results += 1
+        __backward(tzolkin, num_results, ret_val)
 
     return ret_val
+
+
+################################################################################
+def __backward(
+    tzolkin: TzolkinDate, num_results: int, ret_val: List[datetime.date]
+) -> None:
+    """Search forward in time for Tzolkin date `tzolkin` and append to the list.
+
+    Args:
+        tzolkin (TzolkinDate): The Tzolkin date to search for.
+        num_results (int): The number of dates to search.
+        ret_val (List[datetime.date]): The list of found dates with the same Tzolkin date.
+    """
+    results = 0
+    while results < num_results:
+        ret_val.append(lastTzolkin(tzolkin=tzolkin, starting=ret_val[-1]))
+        results += 1
+
+
+################################################################################
+def __forward(
+    tzolkin: TzolkinDate, num_results: int, ret_val: List[datetime.date]
+) -> None:
+    """Search backwards in time for Tzolkin date `tzolkin` and append to the list.
+
+    Args:
+        tzolkin (TzolkinDate): The Tzolkin date to search for.
+        num_results (int): The number of dates to search.
+        ret_val (List[datetime.date]): The list of found dates with the same Tzolkin date.
+    """
+    results = 0
+    while results < num_results:
+        ret_val.append(nextTzolkin(tzolkin=tzolkin, starting=ret_val[-1]))
+        results += 1
 
 
 ################################################################################
