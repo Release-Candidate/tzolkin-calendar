@@ -5,7 +5,7 @@
 # File:     test_calender.py
 # Date:     19.Mar.2021
 ###############################################################################
-"""Test."""
+"""Test calculate module."""
 
 from __future__ import annotations
 

@@ -22,6 +22,7 @@ hypothesis = "*"
 pytest-xdist = "*"
 pytest-cov = "*"
 colorama = "*"
+isort = "*"
 
 [requires]
 python_version = "3.9"
