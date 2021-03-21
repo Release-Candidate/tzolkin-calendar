@@ -74,15 +74,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-buildnis
+          key: ${{ runner.os }}-pip-tzolkin-calendar
           restore-keys: |
-            ${{ runner.os }}-pip-buildnis
+            ${{ runner.os }}-pip-tzolkin-calendar
 
-      - name: Install buildnis package
-        run: python -m pip install --upgrade buildnis
-
-      - name: Install Sphinx
-        run: python -m pip install --upgrade sphinx
+      - name: Install tzolkin-calendar package
+        run: python -m pip install --upgrade tzolkin-calendar
 
       - name: Delete Source
         run: |

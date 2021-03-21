@@ -79,11 +79,11 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/pip
-          key: windows-2019-pip-buildnis
+          key: windows-2019-pip-tzolkin-calendar
           restore-keys: |
-            windows-2019-pip-buildnis
+            windows-2019-pip-tzolkin-calendar
 
-      - name: Install buildnis package
+      - name: Install tzolkin-calendar package
         run: python -m pip install --upgrade tzolkin-calendar
 
       - name: Delete Source
