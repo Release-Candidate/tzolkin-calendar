@@ -165,7 +165,7 @@ def test_tzolkin2gregorian(gregorian: str, tzolkin: TzolkinDate) -> None:
         )
 
         if last_date_list_b:
-            for elem in last_date_list_b:
+            for elem in last_date_list_b[:-1]:
                 assert elem in date_list_b  # nosec
 
         if last_date_list_f:

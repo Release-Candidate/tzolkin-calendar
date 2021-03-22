@@ -259,10 +259,12 @@ def tzolkin2gregorian(
                             `tzolkin`. The number of elements of this list is
                             `num_results`.
     """
-    ret_val = [nextTzolkin(tzolkin=tzolkin, starting=start)]
+    ret_val: List[datetime.date] = []
     if forward:
+        ret_val = [nextTzolkin(tzolkin=tzolkin, starting=start)]
         __forward(tzolkin, num_results, ret_val)
     else:
+        ret_val = [lastTzolkin(tzolkin=tzolkin, starting=start)]
         __backward(tzolkin, num_results, ret_val)
 
     return ret_val
@@ -378,7 +380,7 @@ def nextTzolkin(
 def lastTzolkin(
     tzolkin: TzolkinDate, starting: datetime.date = datetime.date.today()
 ) -> datetime.date:
-    """Return the next gregorian date before `starting`, that has a Tzolkin date of
+    """Return the last gregorian date before `starting`, that has a Tzolkin date of
     `tzolkin`.
     Search backwards in time for a day with the  Tzolkin date `tzolkin`.
 

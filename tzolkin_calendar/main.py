@@ -15,85 +15,28 @@ import argparse
 import datetime
 import re
 import sys
-from typing import Optional
+from typing import Optional, Tuple
 
-from tzolkin_calendar import USED_DATEFMT, VERSION
+from tzolkin_calendar import USED_DATEFMT, TzolkinException
+from tzolkin_calendar.commandline import parseCommandline
 
 from .tzolkin import Tzolkin
 
-__description = """A Tzolk’in date converter and calculator.
-
-Examples:
-
-To get the Tzolk’in date of today:
-
- python -m tzolkin_calendar
-
-To get the next and last gregorian dates with a Tzolk’in date of '8 Chuwen' you can use either:
-
- python -m tzolkin_calendar 8 Chuwen
- python -m tzolkin_calendar 8/Chuwen
- python -m tzolkin_calendar 8.Chuwen
- python -m tzolkin_calendar 8-Chuwen
- python -m tzolkin_calendar 8 11
- python -m tzolkin_calendar 8/11
- python -m tzolkin_calendar 8.11
- python -m tzolkin_calendar 8-11
-
-To get the Tzolk’in date of the 16th april 2016, use one of these date formats:
-
-    python -m tzolkin_calendar 16.04.2016
-    python -m tzolkin_calendar 16/04/2016
-    python -m tzolkin_calendar 16-04-2016
-    python -m tzolkin_calendar 16 04 2016
-    python -m tzolkin_calendar 2016.04.16
-    python -m tzolkin_calendar 2016-04-16
-    python -m tzolkin_calendar 2016/04/16
-    python -m tzolkin_calendar 2016 04 16
-    python -m tzolkin_calendar 04/16/2016
-    python -m tzolkin_calendar 04.16.2016
-    python -m tzolkin_calendar 04-16-2016
-    python -m tzolkin_calendar 04 16 2016
-
-"""
 __gregorian_regex1 = re.compile(
-    r"^([0-3]?[0-9])[\t .-/]([0-1]?[0-9])[\t .-/]([0-9][0-9][0-9][0-9])",
+    r"^([0-3]?[0-9])[\t .\-/]([0-1]?[0-9])[\t .\-/]([0-9][0-9][0-9][0-9])",
 )
 __gregorian_regex2 = re.compile(
-    r"^([0-9][0-9][0-9][0-9])[\t .-/]([0-1]?[0-9])[\t .-/]([0-3]?[0-9])"
+    r"^([0-9][0-9][0-9][0-9])[\t .\-/]([0-1]?[0-9])[\t .\-/]([0-3]?[0-9])"
 )
-__gregorian_regex3 = re.compile(
-    r"^([0-1]?[0-9])[\t .-/]([0-3]?[0-9])[\t .-/]([0-9][0-9][0-9][0-9])"
-)
-__tzolkin_regex1 = re.compile(r"([0-1]?[0-9])[\t .-/]([0-2]?[0-9])")
-__tzolkin_regex2 = re.compile(r"([0-1]?[0-9])[\t .-/](\s+)")
+__gregorian_regex3 = re.compile(r"^([0-1]?[0-9])/([0-3]?[0-9])/([0-9][0-9][0-9][0-9])")
+__tzolkin_regex1 = re.compile(r"([0-1]?[0-9])[\t .\-/]([0-2]?[0-9])")
+__tzolkin_regex2 = re.compile(r"([0-1]?[0-9])[\t .\-/](\s+)")
 
 
 ################################################################################
 def main() -> None:
     """Main function, called if this is called as a script and not imported."""
-    cmd_line_parser = argparse.ArgumentParser(
-        prog="python -m tzolkin_calendar",
-        formatter_class=argparse.RawTextHelpFormatter,
-        description=__description,
-        epilog="See website https://github.com/Release-Candidate/tzolkin_calendar for a detailed description.",
-    )
-
-    cmd_line_parser.add_argument(
-        "--version",
-        action="version",
-        version="Buildnis {version}".format(version=VERSION),
-    )
-
-    cmd_line_parser.add_argument(
-        "date",
-        metavar="DATE",
-        nargs="*",
-        help="The date to parse and convert. Either a Tzolk’in date or a gregorian date can be given. The default is the date of today.",
-        default=datetime.date.today().strftime("%d.%m.%Y"),
-    )
-
-    cmdline_args = cmd_line_parser.parse_args()
+    cmd_line_parser, cmdline_args = parseCommandline()
 
     date_str = ""
     if isinstance(cmdline_args.date, list):
@@ -103,38 +46,179 @@ def main() -> None:
 
     print("Parsing date {date}".format(date=date_str))
 
-    parsed_date = __parseGregorian(date_str)
+    parsed_date = __parseGregorian(date_str=date_str)
 
-    if parsed_date is not None:
-        print(Tzolkin.fromDateString(date_str=parsed_date, fmt="%d.%m.%Y"))
-        sys.exit(0)
+    try:
+        if parsed_date is not None:
+            __printTzolkinSingle(date_str, parsed_date)
+    except Exception as excp:
+        print(
+            'error "{error}" parsing date "{date}". Exiting'.format(
+                error=excp, date=parsed_date
+            ),
+            file=sys.stderr,
+        )
+        cmd_line_parser.print_help()
+        sys.exit(2)
 
+    tzolkin_number, tzolkin_day_number = __parseTzolkin(date_str=date_str)
+
+    if tzolkin_number * tzolkin_day_number != 0:
+        try:
+            if cmdline_args.start_date is not None:
+                start_date = datetime.datetime.strptime(
+                    __parseGregorian(cmdline_args.start_date), USED_DATEFMT
+                ).date()
+            else:
+                start_date = datetime.date.today()
+
+            tzolkin = Tzolkin(number=tzolkin_number, name_number=tzolkin_day_number)
+
+            if cmdline_args.list_size is None:
+                __printTzolkin(start_date=start_date, tzolkin=tzolkin)
+            else:
+                __printTzolkinList(
+                    cmdline_args=cmdline_args,
+                    start_date=start_date,
+                    tzolkin=tzolkin,
+                )
+
+        except TzolkinException as excp:
+            print(
+                'error "{error}" parsing Tzolkin date "{date}"'.format(
+                    error=excp,
+                    date=date_str,
+                ),
+                file=sys.stderr,
+            )
+            cmd_line_parser.print_help()
+            sys.exit(2)
+
+    __nothingFound(
+        cmd_line_parser=cmd_line_parser,
+        date_str=date_str,
+        tzolkin_number=tzolkin_number,
+        tzolkin_day_number=tzolkin_day_number,
+    )
+
+
+################################################################################
+def __printTzolkinSingle(date_str: str, parsed_date: str) -> None:
+    """Print the converted gregorian date as Tzolkin date and exit.
+
+    Args:
+        date_str (str): The given gregorian string.
+        parsed_date (str): The parsed result of the given gregorian string.
+    """
+    print(
+        'Gregorian "{greg}" is "{tzolk}" as Tzolkin'.format(
+            greg=date_str,
+            tzolk=Tzolkin.fromDateString(date_str=parsed_date, fmt="%d.%m.%Y"),
+        )
+    )
+    sys.exit(0)
+
+
+################################################################################
+def __parseTzolkin(date_str: str) -> Tuple[int, int]:
+    """[summary]
+
+    Args:
+        date_str (str): [description]
+
+    Returns:
+        Tuple[int, int]: [description]
+    """
     tzolkin_number = 0
     tzolkin_day_number = 0
-
     result = __tzolkin_regex1.search(date_str)
+
     if result:
         tzolkin_number = int(result.group(1))
         tzolkin_day_number = int(result.group(2))
 
-    result = __tzolkin_regex1.search(date_str)
+    result = __tzolkin_regex2.search(date_str)
     if result:
         tzolkin_number = int(result.group(1))
         tzolkin_day_name = result.group(2)
         print(tzolkin_day_name)
 
-    if tzolkin_number * tzolkin_day_number != 0:
-        print(Tzolkin(number=tzolkin_number, name_number=tzolkin_day_number))
-        print(
-            Tzolkin(number=tzolkin_number, name_number=tzolkin_day_number)
-            .getLastDate()
-            .strftime(USED_DATEFMT)
+    return tzolkin_number, tzolkin_day_number
+
+
+################################################################################
+def __printTzolkin(
+    start_date: datetime.date,
+    tzolkin: Tzolkin,
+) -> None:
+    """Print the next and last dates with the same tzolkin date as the given one.
+
+    Args:
+        tzolkin_number (int): [description]
+        tzolkin_day_number (int): [description]
+        start_date (datetime.date): [description]
+        tzolkin (Tzolkin): [description]
+    """
+    last_date = tzolkin.getLastDate(start_date=start_date).strftime(USED_DATEFMT)
+    next_date = tzolkin.getNextDate(start_date=start_date).strftime(USED_DATEFMT)
+    print(
+        'Tzolkin date "{tzolk}" next date is "{next}", last date has been "{last}"'.format(
+            tzolk=tzolkin, next=next_date, last=last_date
         )
-        print(
-            Tzolkin(number=tzolkin_number, name_number=tzolkin_day_number)
-            .getNextDate()
-            .strftime(USED_DATEFMT)
+    )
+    sys.exit(0)
+
+
+################################################################################
+def __printTzolkinList(
+    cmdline_args: argparse.Namespace,
+    start_date: datetime.date,
+    tzolkin: Tzolkin,
+) -> None:
+    """Print the list of dates with the same Tzolkin date as the given one.
+
+    Args:
+        cmdline_args (argparse.Namespace): The command line arguments in a `Namespace` object.
+        tzolkin_number (int): The number of the Tzolkin day to search.
+        tzolkin_day_number (int): The day name number of the tzolkin day to search.
+        start_date (datetime.date): The gregorian date to start the search on.
+        tzolkin (Tzolkin): [description]
+    """
+    last_date_list = tzolkin.getLastDateList(
+        start_date=start_date, list_size=cmdline_args.list_size
+    )
+    next_date_list = tzolkin.getNextDateList(
+        start_date=start_date, list_size=cmdline_args.list_size
+    )
+    print(
+        'Tzolkin date "{tzolk}"\n next dates are {next}\n last dates have been {last}'.format(
+            tzolk=tzolkin,
+            next=[a.strftime(USED_DATEFMT) for a in next_date_list],
+            last=[a.strftime(USED_DATEFMT) for a in last_date_list],
         )
+    )
+    sys.exit(0)
+
+
+################################################################################
+def __nothingFound(
+    cmd_line_parser: argparse.ArgumentParser,
+    date_str: str,
+    tzolkin_number: int,
+    tzolkin_day_number: int,
+) -> None:
+    """Exit with an error if no date has been found.
+
+    Args:
+        cmd_line_parser (argparse.ArgumentParser): The command line parser instance.
+        date_str (str): The date string to parse.
+        tzolkin_number (int): The Tzolkin day number.
+        tzolkin_day_number (int): The number of the Tzolkin day name.
+    """
+    if tzolkin_number * tzolkin_day_number == 0:
+        print('Error parsing date "{date}"'.format(date=date_str), file=sys.stderr)
+        cmd_line_parser.print_help()
+        sys.exit(2)
 
 
 ################################################################################
