@@ -96,7 +96,15 @@ python -m nbopen.install_win
 
 For OS X, the installation is a bit more advanced, see [nbopen](https://github.com/takluyver/nbopen)
 
-Download the Tzolk’in calendar notebook at
+Download the Tzolk’in calendar notebook at [Tzolk’in Calendar.ipynb](https://raw.githubusercontent.com/Release-Candidate/tzolkin-calendar/main/Tzolk%E2%80%99in%20Calendar.ipynb)
+
+Open it in Jupyter Notebook and click the `Voila` button.
+
+![Voila button in Jupyter Notebook](./tzolkin_calendar/doc/images/jupyter_voila.png)
+
+You should now see something like:
+
+![Voila page of Tzolk’in Calendar](./tzolkin_calendar/doc/images/tzolkin_jupyter_voila_page.png)
 
 ### More information
 
