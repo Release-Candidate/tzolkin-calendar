@@ -20,6 +20,7 @@ Information about the installation and usage you find at [Installation and Usage
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
     - [Usage](#usage)
+      - [Using the Jupyter Notebook](#using-the-jupyter-notebook)
     - [More information](#more-information)
   - [Contributing](#contributing)
     - [Report Issues (Bugs and Feature Requests)](#report-issues-bugs-and-feature-requests)
@@ -63,6 +64,39 @@ python -m pip install tzolkin-calendar
 More information about using pip you get at [pip Quickstart](https://pip.pypa.io/en/stable/quickstart/)
 
 ### Usage
+
+#### Using the Jupyter Notebook
+
+Install Jupyter Notebook, Viola and ipywidgets
+
+```shell
+python -m pip install notebook voila ipywidgets
+```
+
+If you want to be able to open the Jupyter notebook files directly, install `nbopen`.
+
+```shell
+python -m pip install nbopen
+```
+
+and add the extension to the list of extensions of your OS, so that you can double click
+the `.ipynb` files and Jupyter opens it.
+
+On Linux:
+
+```shell
+python -m nbopen.install_xdg
+```
+
+On Windows:
+
+```shell
+python -m nbopen.install_win
+```
+
+For OS X, the installation is a bit more advanced, see [nbopen](https://github.com/takluyver/nbopen)
+
+Download the Tzolk’in calendar notebook at
 
 ### More information
 

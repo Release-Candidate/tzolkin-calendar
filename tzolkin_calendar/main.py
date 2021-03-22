@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import datetime
 import re
+import sys
 from typing import Optional
 
 from tzolkin_calendar import USED_DATEFMT, VERSION
@@ -106,6 +107,7 @@ def main() -> None:
 
     if parsed_date is not None:
         print(Tzolkin.fromDateString(date_str=parsed_date, fmt="%d.%m.%Y"))
+        sys.exit(0)
 
     tzolkin_number = 0
     tzolkin_day_number = 0
