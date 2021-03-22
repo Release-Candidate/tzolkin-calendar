@@ -20,7 +20,9 @@ Information about the installation and usage you find at [Installation and Usage
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
     - [Usage](#usage)
+      - [Using the Command-Line Client](#using-the-command-line-client)
       - [Using the Jupyter Notebook](#using-the-jupyter-notebook)
+      - [Using the Python Module in Your Programs](#using-the-python-module-in-your-programs)
     - [More information](#more-information)
   - [Contributing](#contributing)
     - [Report Issues (Bugs and Feature Requests)](#report-issues-bugs-and-feature-requests)
@@ -65,7 +67,13 @@ More information about using pip you get at [pip Quickstart](https://pip.pypa.io
 
 ### Usage
 
+
+
+#### Using the Command-Line Client
+
 #### Using the Jupyter Notebook
+
+You can get Information about Jupyter Notebooks at the [official site](https://jupyter-notebook.readthedocs.io/en/stable/)
 
 Install Jupyter Notebook, Viola and ipywidgets
 
@@ -105,6 +113,10 @@ Open it in Jupyter Notebook and click the `Voila` button.
 You should now see something like:
 
 ![Voila page of Tzolk’in Calendar](./tzolkin_calendar/doc/images/tzolkin_jupyter_voila_page.png)
+
+#### Using the Python Module in Your Programs
+
+ASA
 
 ### More information
 
