@@ -49,7 +49,7 @@ Mayan Glyphs and Unicode: [Roadmap to the SMP](https://www.unicode.org/roadmaps/
 
 ## Installation and Usage
 
-There are 2 Jupyter Notebooks online:
+There are 2 Jupyter Notebooks online at [Binder](https://mybinder.org/):
 
 Interactive Tzolk’in converter:
 [![Binder tzolkin-calendar Notebook](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calendar.ipynb)
@@ -127,7 +127,7 @@ You should now see something like:
 
 #### Using the Python Module in Your Programs
 
-See the other Jupyter Notebook: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calender%20Python%20Module.ipynb)
+See the second Jupyter Notebook about how to use the tzolkin-calendar module: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calender%20Python%20Module.ipynb)
 
 ### More information
 
