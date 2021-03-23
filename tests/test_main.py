@@ -444,3 +444,33 @@ def test_tzolkin2gregorianStart(
         )
         == 0
     )
+
+
+################################################################################
+def test_invalidTzolkinDate(capsys: pytest.CaptureFixture) -> None:
+    """Test  with an invalid gregorian date."""
+    with pytest.raises(expected_exception=SystemExit) as excp:
+        runTzolkinCalendar(["15 8"])
+
+    assert excp.value.args[0] == 2  # nosec
+    captured = capsys.readouterr()
+    assert (  # nosec
+        captured.err.find('error "number 15 is not a valid Tzolkin day number,') == 0
+    )
+    assert (  # nosec
+        captured.out.find("usage: python -m tzolkin_calendar [-h] [--version]") == 0
+    )
+
+
+################################################################################
+def test_invalidTzolkinDateName(capsys: pytest.CaptureFixture) -> None:
+    """Test  with an invalid gregorian date."""
+    with pytest.raises(expected_exception=SystemExit) as excp:
+        runTzolkinCalendar(["1 HUGO"])
+
+    assert excp.value.args[0] == 2  # nosec
+    captured = capsys.readouterr()
+    assert captured.err.find('Error parsing date "1 HUGO"') == 0  # nosec
+    assert (  # nosec
+        captured.out.find("usage: python -m tzolkin_calendar [-h] [--version]") == 0
+    )
