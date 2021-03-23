@@ -10,6 +10,7 @@ Information about the installation and usage you find at [Installation and Usage
 [![PIP version badge](https://img.shields.io/pypi/v/tzolkin-calendar)](https://pypi.org/project/tzolkin-calendar/)
 [![ReadTheDocs badge](https://readthedocs.org/projects/tzolkin-calendar/badge/?version=latest)](https://tzolkin-calendar.readthedocs.io/en/latest/?badge=latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Binder tzolkin-calendar Notebook](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calendar.ipynb)
 [more badges](#badges)
 
 ## Table of Contents <!-- omit in toc -->
@@ -67,11 +68,11 @@ More information about using pip you get at [pip Quickstart](https://pip.pypa.io
 
 ### Usage
 
-
-
 #### Using the Command-Line Client
 
 #### Using the Jupyter Notebook
+
+You can test it online at [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calendar.ipynb)
 
 You can get Information about Jupyter Notebooks at the [official site](https://jupyter-notebook.readthedocs.io/en/stable/)
 
