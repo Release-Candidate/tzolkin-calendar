@@ -67,7 +67,7 @@ def __date2Tzolkin(
     cmd_line_parser: argparse.ArgumentParser,
     cmdline_args: argparse.Namespace,
     date_str: str,
-) -> None:
+) -> Tuple[int, int]:
     """Try to parse the given date string as a Tzolkin date and display the next and
     last gregorian dates with the same Tzolkin date.
 
@@ -75,28 +75,55 @@ def __date2Tzolkin(
         cmd_line_parser (argparse.ArgumentParser): The command line parser object.
         cmdline_args (argparse.Namespace): The object holding all command line arguments.
         date_str (str): The Tzolkin date string to parse.
+
+    Returns:
+        Tuple[int, int]: The Tzolkin day number and day name number on success, the
+        tuple (0, 0) if no Tzolkin date could be parsed.
     """
     tzolkin_number, tzolkin_day_number = __parseTzolkin(date_str=date_str)
     if tzolkin_number * tzolkin_day_number != 0:
-        try:
-            if cmdline_args.start_date is not None:
-                start_date = datetime.datetime.strptime(
-                    __parseGregorian(cmdline_args.start_date), USED_DATEFMT
-                ).date()
-            else:
-                start_date = datetime.date.today()
-            tzolkin = Tzolkin(number=tzolkin_number, name_number=tzolkin_day_number)
-            if cmdline_args.list_size is None:
-                __printTzolkin(start_date=start_date, tzolkin=tzolkin)
-            else:
-                __printTzolkinList(
-                    cmdline_args=cmdline_args,
-                    start_date=start_date,
-                    tzolkin=tzolkin,
-                )
-        except TzolkinException as excp:
-            __errorParsingTzolkin(cmd_line_parser, date_str, excp)
+        __searchTzolkinDates(
+            cmd_line_parser, cmdline_args, date_str, tzolkin_number, tzolkin_day_number
+        )
+
     return tzolkin_number, tzolkin_day_number
+
+
+################################################################################
+def __searchTzolkinDates(
+    cmd_line_parser: argparse.ArgumentParser,
+    cmdline_args: argparse.Namespace,
+    date_str: str,
+    tzolkin_number: int,
+    tzolkin_day_number: int,
+) -> None:
+    """[summary]
+
+    Args:
+        cmd_line_parser (argparse.ArgumentParser): [description]
+        cmdline_args (argparse.Namespace): [description]
+        date_str (str): [description]
+        tzolkin_number (int): [description]
+        tzolkin_day_number (int): [description]
+    """
+    try:
+        if cmdline_args.start_date is not None:
+            start_date = datetime.datetime.strptime(
+                __parseGregorian(cmdline_args.start_date), USED_DATEFMT
+            ).date()
+        else:
+            start_date = datetime.date.today()
+        tzolkin = Tzolkin(number=tzolkin_number, name_number=tzolkin_day_number)
+        if cmdline_args.list_size is None:
+            __printTzolkin(start_date=start_date, tzolkin=tzolkin)
+        else:
+            __printTzolkinList(
+                cmdline_args=cmdline_args,
+                start_date=start_date,
+                tzolkin=tzolkin,
+            )
+    except TzolkinException as excp:
+        __errorParsingTzolkin(cmd_line_parser, date_str, excp)
 
 
 ################################################################################
