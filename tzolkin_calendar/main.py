@@ -25,7 +25,7 @@ from .tzolkin import Tzolkin
 
 # Regexes to parse date strings, gregorian and Tzolkin dates.
 __gregorian_regex1 = re.compile(
-    r"^([0-3]?[0-9])[\t .\-/]([0-1]?[0-9])[\t .\-/]([0-9][0-9][0-9][0-9])",
+    r"^([0-3]?[0-9])[\t .\-]([0-1]?[0-9])[\t .\-]([0-9][0-9][0-9][0-9])",
 )
 __gregorian_regex2 = re.compile(
     r"^([0-9][0-9][0-9][0-9])[\t .\-/]([0-1]?[0-9])[\t .\-/]([0-3]?[0-9])"
