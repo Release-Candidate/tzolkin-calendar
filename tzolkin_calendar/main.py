@@ -48,16 +48,35 @@ def main() -> None:
 
     __displayYear(cmdline_args)
 
-    parsed_date = __parseGregorian(date_str=date_str)
+    __date2gregorian(cmd_line_parser, date_str)
 
-    try:
-        if parsed_date is not None:
-            __printTzolkinSingle(date_str, parsed_date)
-    except Exception as excp:
-        __errorParsingDate(cmd_line_parser, parsed_date, excp)
+    tzolkin_number, tzolkin_day_number = __date2Tzolkin(
+        cmd_line_parser, cmdline_args, date_str
+    )
 
+    __nothingFound(
+        cmd_line_parser=cmd_line_parser,
+        date_str=date_str,
+        tzolkin_number=tzolkin_number,
+        tzolkin_day_number=tzolkin_day_number,
+    )
+
+
+################################################################################
+def __date2Tzolkin(
+    cmd_line_parser: argparse.ArgumentParser,
+    cmdline_args: argparse.Namespace,
+    date_str: str,
+) -> None:
+    """Try to parse the given date string as a Tzolkin date and display the next and
+    last gregorian dates with the same Tzolkin date.
+
+    Args:
+        cmd_line_parser (argparse.ArgumentParser): The command line parser object.
+        cmdline_args (argparse.Namespace): The object holding all command line arguments.
+        date_str (str): The Tzolkin date string to parse.
+    """
     tzolkin_number, tzolkin_day_number = __parseTzolkin(date_str=date_str)
-
     if tzolkin_number * tzolkin_day_number != 0:
         try:
             if cmdline_args.start_date is not None:
@@ -66,9 +85,7 @@ def main() -> None:
                 ).date()
             else:
                 start_date = datetime.date.today()
-
             tzolkin = Tzolkin(number=tzolkin_number, name_number=tzolkin_day_number)
-
             if cmdline_args.list_size is None:
                 __printTzolkin(start_date=start_date, tzolkin=tzolkin)
             else:
@@ -77,16 +94,25 @@ def main() -> None:
                     start_date=start_date,
                     tzolkin=tzolkin,
                 )
-
         except TzolkinException as excp:
             __errorParsingTzolkin(cmd_line_parser, date_str, excp)
+    return tzolkin_number, tzolkin_day_number
 
-    __nothingFound(
-        cmd_line_parser=cmd_line_parser,
-        date_str=date_str,
-        tzolkin_number=tzolkin_number,
-        tzolkin_day_number=tzolkin_day_number,
-    )
+
+################################################################################
+def __date2gregorian(cmd_line_parser: argparse.ArgumentParser, date_str: str) -> None:
+    """Try to parse the given date as a gregorian date and convert it to a Tzolkin date.
+
+    Args:
+        cmd_line_parser (argparse.ArgumentParser): The command line parser object.
+        date_str (str): The string to try to parse as a gregorian date.
+    """
+    parsed_date = __parseGregorian(date_str=date_str)
+    try:
+        if parsed_date is not None:
+            __printTzolkinSingle(date_str, parsed_date)
+    except Exception as excp:
+        __errorParsingDate(cmd_line_parser, parsed_date, excp)
 
 
 ################################################################################
