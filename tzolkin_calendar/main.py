@@ -17,7 +17,8 @@ import re
 import sys
 from typing import Optional, Tuple
 
-from tzolkin_calendar import USED_DATEFMT, TzolkinException, day_names
+from tzolkin_calendar import USED_DATEFMT, TzolkinException
+from tzolkin_calendar.calculate import makeLookUpTable, parseTzolkinName
 from tzolkin_calendar.commandline import parseCommandline
 
 from .tzolkin import Tzolkin
@@ -45,20 +46,15 @@ def main() -> None:
     else:
         date_str = cmdline_args.date
 
+    __displayYear(cmdline_args)
+
     parsed_date = __parseGregorian(date_str=date_str)
 
     try:
         if parsed_date is not None:
             __printTzolkinSingle(date_str, parsed_date)
     except Exception as excp:
-        print(
-            'error "{error}" parsing date "{date}". Exiting'.format(
-                error=excp, date=parsed_date
-            ),
-            file=sys.stderr,
-        )
-        cmd_line_parser.print_help()
-        sys.exit(2)
+        __errorParsingDate(cmd_line_parser, parsed_date, excp)
 
     tzolkin_number, tzolkin_day_number = __parseTzolkin(date_str=date_str)
 
@@ -83,15 +79,7 @@ def main() -> None:
                 )
 
         except TzolkinException as excp:
-            print(
-                'error "{error}" parsing Tzolkin date "{date}"'.format(
-                    error=excp,
-                    date=date_str,
-                ),
-                file=sys.stderr,
-            )
-            cmd_line_parser.print_help()
-            sys.exit(2)
+            __errorParsingTzolkin(cmd_line_parser, date_str, excp)
 
     __nothingFound(
         cmd_line_parser=cmd_line_parser,
@@ -99,6 +87,49 @@ def main() -> None:
         tzolkin_number=tzolkin_number,
         tzolkin_day_number=tzolkin_day_number,
     )
+
+
+################################################################################
+def __errorParsingDate(
+    cmd_line_parser: argparse.ArgumentParser, parsed_date: str, excp: TzolkinException
+) -> None:
+    """Print the error message of `TzolkinException` and exit.
+
+    Args:
+        cmd_line_parser (argparse.ArgumentParser): The command line parser object.
+        parsed_date (str): The string that failed to be parsed.
+        excp (TzolkinException): The raised exception.
+    """
+    print(
+        'error "{error}" parsing date "{date}". Exiting'.format(
+            error=excp, date=parsed_date
+        ),
+        file=sys.stderr,
+    )
+    cmd_line_parser.print_help()
+    sys.exit(2)
+
+
+################################################################################
+def __errorParsingTzolkin(
+    cmd_line_parser: argparse.ArgumentParser, date_str: str, excp: TzolkinException
+) -> None:
+    """Display the error message of the TzolkinException and exit.
+
+    Args:
+        cmd_line_parser (argparse.ArgumentParser): The command line parser object.
+        date_str (str): The string that failed to be parsed.
+        excp (TzolkinException): The raised exception.
+    """
+    print(
+        'error "{error}" parsing Tzolkin date "{date}"'.format(
+            error=excp,
+            date=date_str,
+        ),
+        file=sys.stderr,
+    )
+    cmd_line_parser.print_help()
+    sys.exit(2)
 
 
 ################################################################################
@@ -120,13 +151,14 @@ def __printTzolkinSingle(date_str: str, parsed_date: str) -> None:
 
 ################################################################################
 def __parseTzolkin(date_str: str) -> Tuple[int, int]:
-    """[summary]
+    """Parse the given string to find a Tzolkin date string.
 
     Args:
-        date_str (str): [description]
-
+        date_str (str): The string to parse for a Tzolkin day string of the form
+                        'NUMBER DAY_NAME'
     Returns:
-        Tuple[int, int]: [description]
+        Tuple[int, int]: Returns the Tzolkin day number and Tzolkin day name number as a
+                        Tuple.
     """
     tzolkin_number = 0
     tzolkin_day_number = 0
@@ -140,33 +172,9 @@ def __parseTzolkin(date_str: str) -> Tuple[int, int]:
     if result:
         tzolkin_number = int(result.group(1))
         tzolkin_day_name = result.group(2)
-        tzolkin_day_number = __tzolkinName2NameNumber(tzolkin_day_name)
+        tzolkin_day_number = parseTzolkinName(tzolkin_day_name)
 
     return tzolkin_number, tzolkin_day_number
-
-
-###############################################################################
-def __tzolkinName2NameNumber(name_str: str) -> int:
-    """Parse the Tzolkin day name and return the corresponding day name number.
-
-    Args:
-        name_str (str): The name string to parse
-
-    Returns:
-        int: The day name number on success, 0 on errors.
-    """
-    ret_val = 0
-
-    if name_str.upper() in [a.upper() for a in day_names.values()]:
-        ret_val = Tzolkin.getNameNumberFromName(name_str)
-    else:
-        for num, name in day_names.items():
-            if "".join(
-                [a for a in name_str.upper() if a.isascii() and a.isalpha()]
-            ) == "".join([a for a in name.upper() if a.isascii() and a.isalpha()]):
-                ret_val: int = num
-
-    return ret_val
 
 
 ################################################################################
@@ -280,3 +288,21 @@ def __parseGregorian(date_str: str) -> Optional[str]:
         return ".".join([day, month, year])
 
     return None
+
+
+################################################################################
+def __displayYear(cmdline_args: argparse.Namespace) -> None:
+    """If the argument 'show year' has been given, display all days of a Tzolkin year.
+
+    Args:
+        cmdline_args (argparse.Namespace): The object holding all command line
+                            arguments.
+    """
+    if cmdline_args.display_year:
+        year_dict = makeLookUpTable()
+        key_string = ""
+        for key in year_dict:
+            key_string = " ".join([key_string, year_dict[key].__repr__()])
+            if key % 13 == 0:
+                print(key_string)
+                key_string = ""

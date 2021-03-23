@@ -21,6 +21,7 @@ from tzolkin_calendar.calculate import (
     lastTzolkin,
     makeLookUpTable,
     nextTzolkin,
+    parseTzolkinName,
     tzolkin2gregorian,
 )
 
@@ -411,6 +412,23 @@ class Tzolkin:
                 name=name_str, list=day_names.values()
             )
         )
+
+    ############################################################################
+    @staticmethod
+    def parseTzolkinName(name_str: str) -> int:
+        """Parse the given string to get a valid Tzolkin name.
+        Ignores lower- and uppercase and all non-alphanumeric or non-ASCII letters.
+
+        Returns 0 if no Tzolkin day names matches the given string.
+
+        Args:
+            name_str (str): The string to parse for a Tzolkin day name.
+
+        Returns:
+            int: The number of the Tzolkin day name on success, 0 if no Tzolkin day name
+                    matches.
+        """
+        return parseTzolkinName(name_str=name_str)
 
     ############################################################################
     @staticmethod

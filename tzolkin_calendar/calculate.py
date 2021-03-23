@@ -42,6 +42,7 @@ Functions:
     lastTzolkin(tzolkin: TzolkinDate, starting: datetime.date) -> datetime.date
     getTzolkinDiff(start: TzolkinDate, end: TzolkinDate) -> int
     getTzolkinDay(tzolkin: TzolkinDate) -> int
+    parseTzolkinName(name_str: str) -> int
     calculateTzolkinName(start_name: int, to_add: int) -> int
     calculateTzolkinNumber(start_number: int, to_add: int) -> int
     makeLookUpTable() -> Dict[int, TzolkinDate]
@@ -342,6 +343,30 @@ def calculateTzolkinNumber(start_number: int, to_add: int) -> int:
     ret_val = (start_number + to_add) % len(day_numbers)
     if ret_val == 0:
         ret_val = len(day_numbers)
+
+    return ret_val
+
+
+################################################################################
+def parseTzolkinName(name_str: str) -> int:
+    """Parse the given string to get a Tzolkin day name.
+    Ignores lower- and uppercase, ignores all non-alphanumberic characters.
+
+    Returns 0 if no name has been found
+
+    Args:
+        name_str (str): The string to parse to get a Tzolkin day name.
+
+    Returns:
+        int: The number of the found Tzolkin day name. 0 on errors.
+    """
+    ret_val = 0
+
+    for num, name in day_names.items():
+        if "".join(
+            [a for a in name_str.upper() if a.isascii() and a.isalpha()]
+        ) == "".join([a for a in name.upper() if a.isascii() and a.isalpha()]):
+            ret_val: int = num
 
     return ret_val
 

@@ -7,6 +7,9 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_run:
+    workflows: ["Pip Package"]
+    types: [completed]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -52,9 +55,7 @@ jobs:
         run: python -m pipenv install --dev
 
       - name: Run Tests
-        shell: cmd
         run: |
-          call pipenv shell
           pipenv run pytest --hypothesis-show-statistics --cov=./ --cov-report=xml
 
       - name: Upload coverage to Codecov
@@ -111,10 +112,8 @@ jobs:
           python -m pipenv update
 
       - name: Run Tests
-        shell: cmd
         run: |
-          rmdir /S /Q tzolkin_calendar
-          call pipenv shell
+          Remove-Item tzolkin_calendar -Recurse
           pipenv run pytest --hypothesis-show-statistics --cov=./ --cov-report=xml
 
       - name: Upload coverage to Codecov

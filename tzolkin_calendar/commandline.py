@@ -87,6 +87,14 @@ def parseCommandline() -> Tuple[argparse.ArgumentParser, argparse.Namespace]:
         default=None,
     )
     cmd_line_parser.add_argument(
+        "-y",
+        "--year",
+        action="store_true",
+        help="Print all dates of a Tzolkin year.",
+        dest="display_year",
+        default=False,
+    )
+    cmd_line_parser.add_argument(
         "date",
         metavar="DATE",
         nargs="*",
