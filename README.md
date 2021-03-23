@@ -201,5 +201,6 @@ Everything in `tzolkin-calendar` is licensed under the MIT license, see file [LI
 [![Tests Mac OS X latest](https://github.com/Release-Candidate/tzolkin-calendar/actions/workflows/osx_test.yml/badge.svg)](https://github.com/Release-Candidate/tzolkin-calendar/actions/workflows/osx_test.yml)
 [![Ubuntu 20.04](https://github.com/Release-Candidate/tzolkin-calendar/actions/workflows/linux.yml/badge.svg)](https://github.com/Release-Candidate/tzolkin-calendar/actions/workflows/linux.yml)
 [![Tests Ubuntu 20.04](https://github.com/Release-Candidate/tzolkin-calendar/actions/workflows/linux_test.yml/badge.svg)](https://github.com/Release-Candidate/tzolkin-calendar/actions/workflows/linux_test.yml)
-[![Windows 2019](https://github.com/Release-Candidate/tzolkin-calendar/actions/workflows/windows.yml/badge.svg)](https://github.com/Release-Candidate/tzolkin-calendar/actions/workflows/windows.yml)
 [![Tests Windows 2019](https://github.com/Release-Candidate/tzolkin-calendar/actions/workflows/windows_test.yml/badge.svg)](https://github.com/Release-Candidate/tzolkin-calendar/actions/workflows/windows_test.yml)
+
+Problem with Unicode output on GitHub's Windows 2019 Server: [![Windows 2019](https://github.com/Release-Candidate/tzolkin-calendar/actions/workflows/windows.yml/badge.svg)](https://github.com/Release-Candidate/tzolkin-calendar/actions/workflows/windows.yml), see [Issue #1](https://github.com/Release-Candidate/tzolkin-calendar/issues/1)
