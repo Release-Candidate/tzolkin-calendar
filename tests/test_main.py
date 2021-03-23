@@ -172,7 +172,7 @@ def test_gregorian2tzolkin(
     assert captured.err == ""  # nosec
     assert (  # nosec
         captured.out
-        == 'Gregorian "{gregorian}" is "{tzolkin}" as Tzolkin\n'.format(
+        == 'Gregorian "{gregorian}" is "{tzolkin}" as Tzolk’in\n'.format(
             gregorian=gregorian, tzolkin=tzolkin
         )
     )
@@ -236,7 +236,7 @@ def test_gregorian2tzolkinVariants(
     assert captured.err == ""  # nosec
     assert (  # nosec
         captured.out
-        == 'Gregorian "{gregorian}" is "{tzolkin}" as Tzolkin\n'.format(
+        == 'Gregorian "{gregorian}" is "{tzolkin}" as Tzolk’in\n'.format(
             gregorian=gregorian, tzolkin=tzolkin
         )
     )
@@ -284,7 +284,7 @@ def test_tzolkin2gregorian(
     assert captured.err == ""  # nosec
     assert (  # nosec
         captured.out.find(
-            'Tzolkin date "{tzolkin_name}" next date is "'.format(
+            'Tzolk’in date "{tzolkin_name}" next date is "'.format(
                 tzolkin_name=tzolkin_name
             )
         )
@@ -334,7 +334,7 @@ def test_tzolkin2gregorianList(
     assert captured.err == ""  # nosec
     assert (  # nosec
         captured.out.find(
-            'Tzolkin date "{tzolkin_name}"\n next dates are '.format(
+            'Tzolk’in date "{tzolkin_name}"\n next dates are '.format(
                 tzolkin_name=tzolkin_name
             )
         )
@@ -384,7 +384,7 @@ def test_tzolkin2gregorianListEmpty(
     assert captured.err == ""  # nosec
     assert (  # nosec
         captured.out.find(
-            'Tzolkin date "{tzolkin_name}"\n next dates are []\n last dates have been []'.format(
+            'Tzolk’in date "{tzolkin_name}"\n next dates are []\n last dates have been []'.format(
                 tzolkin_name=tzolkin_name
             )
         )
@@ -394,7 +394,7 @@ def test_tzolkin2gregorianListEmpty(
 
 ################################################################################
 @pytest.mark.parametrize(
-    "tzolkin_str,tzolkin_name,next,last",
+    "tzolkin_str,tzolkin_name,next_str,last_str",
     [
         pytest.param("12 Bʼen", "12 Bʼen", "11.05.2000", "25.08.1999", id="12 Bʼen"),
         pytest.param("12/Bʼen", "12 Bʼen", "11.05.2000", "25.08.1999", id="12/Bʼen"),
@@ -426,8 +426,8 @@ def test_tzolkin2gregorianStart(
     capsys: pytest.CaptureFixture,
     tzolkin_str: str,
     tzolkin_name: str,
-    next: str,
-    last: str,
+    next_str: str,
+    last_str: str,
 ) -> None:
     """Test searching for tzolkin dates."""
     with pytest.raises(expected_exception=SystemExit) as excp:
@@ -438,8 +438,8 @@ def test_tzolkin2gregorianStart(
     assert captured.err == ""  # nosec
     assert (  # nosec
         captured.out.find(
-            'Tzolkin date "{tzolkin_name}" next date is "{next}", last date has been "{last}"'.format(
-                tzolkin_name=tzolkin_name, next=next, last=last
+            'Tzolk’in date "{tzolkin_name}" next date is "{next}", last date has been "{last}"'.format(
+                tzolkin_name=tzolkin_name, next=next_str, last=last_str
             )
         )
         == 0

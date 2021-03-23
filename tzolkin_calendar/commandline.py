@@ -16,15 +16,15 @@ from typing import Tuple
 
 from tzolkin_calendar import VERSION
 
-__description = """A Tzolkin date converter and calculator.
+__description = """A Tzolk’in date converter and calculator.
 
 Examples:
 
-To get the Tzolkin date of today:
+To get the Tzolk’in date of today:
 
  python -m tzolkin_calendar
 
-To get the next and last gregorian dates with a Tzolkin date of '8 Chuwen' you can use either:
+To get the next and last gregorian dates with a Tzolk’in date of '8 Chuwen' you can use either:
 
  python -m tzolkin_calendar 8 Chuwen
  python -m tzolkin_calendar 8/Chuwen
@@ -35,7 +35,7 @@ To get the next and last gregorian dates with a Tzolkin date of '8 Chuwen' you c
  python -m tzolkin_calendar 8.11
  python -m tzolkin_calendar 8-11
 
-To get the Tzolkin date of the 16th april 2016, use one of these date formats:
+To get the Tzolk’in date of the 16th april 2016, use one of these date formats:
 
     python -m tzolkin_calendar 16.04.2016
     python -m tzolkin_calendar 16-04-2016
@@ -72,7 +72,7 @@ def parseCommandline() -> Tuple[argparse.ArgumentParser, argparse.Namespace]:
         "-l",
         "--list",
         metavar="LIST_LENGTH",
-        help="Display a list of dates with the given Tzolkin date instead of a single one. The length of the list is LIST_LENGTH.",
+        help="Display a list of dates with the given Tzolk’in date instead of a single one. The length of the list is LIST_LENGTH.",
         dest="list_size",
         type=int,
         default=None,
@@ -81,7 +81,7 @@ def parseCommandline() -> Tuple[argparse.ArgumentParser, argparse.Namespace]:
         "-s",
         "--start",
         metavar="START_DATE",
-        help="The start date to begin the search for the dates with the same Tzolkin date. The same formatting rules apply as for the main argument DATE.",
+        help="The start date to begin the search for the dates with the same Tzolk’in date. The same formatting rules apply as for the main argument DATE.",
         dest="start_date",
         type=str,
         default=None,
@@ -90,7 +90,7 @@ def parseCommandline() -> Tuple[argparse.ArgumentParser, argparse.Namespace]:
         "-y",
         "--year",
         action="store_true",
-        help="Print all dates of a Tzolkin year.",
+        help="Print all dates of a Tzolk’in year.",
         dest="display_year",
         default=False,
     )
@@ -98,7 +98,7 @@ def parseCommandline() -> Tuple[argparse.ArgumentParser, argparse.Namespace]:
         "date",
         metavar="DATE",
         nargs="*",
-        help="The date to parse and convert. Either a Tzolkin date or a gregorian date can be given. The default is the date of today.",
+        help="The date to parse and convert. Either a Tzolk’in date or a gregorian date can be given. The default is the date of today.",
         default=datetime.date.today().strftime("%d.%m.%Y"),
     )
 

@@ -176,7 +176,7 @@ def __errorParsingTzolkin(
         excp (TzolkinException): The raised exception.
     """
     print(
-        'error "{error}" parsing Tzolkin date "{date}"'.format(
+        'error "{error}" parsing Tzolk’in date "{date}"'.format(
             error=excp,
             date=date_str,
         ),
@@ -195,7 +195,7 @@ def __printTzolkinSingle(date_str: str, parsed_date: str) -> None:
         parsed_date (str): The parsed result of the given gregorian string.
     """
     print(
-        'Gregorian "{greg}" is "{tzolk}" as Tzolkin'.format(
+        'Gregorian "{greg}" is "{tzolk}" as Tzolk’in'.format(
             greg=date_str,
             tzolk=Tzolkin.fromDateString(date_str=parsed_date, fmt="%d.%m.%Y"),
         )
@@ -249,7 +249,7 @@ def __printTzolkin(
     last_date = tzolkin.getLastDate(start_date=start_date).strftime(USED_DATEFMT)
     next_date = tzolkin.getNextDate(start_date=start_date).strftime(USED_DATEFMT)
     print(
-        'Tzolkin date "{tzolk}" next date is "{next}", last date has been "{last}"'.format(
+        'Tzolk’in date "{tzolk}" next date is "{next}", last date has been "{last}"'.format(
             tzolk=tzolkin, next=next_date, last=last_date
         )
     )
@@ -278,7 +278,7 @@ def __printTzolkinList(
         start_date=start_date, list_size=cmdline_args.list_size
     )
     print(
-        'Tzolkin date "{tzolk}"\n next dates are {next}\n last dates have been {last}'.format(
+        'Tzolk’in date "{tzolk}"\n next dates are {next}\n last dates have been {last}'.format(
             tzolk=tzolkin,
             next=[a.strftime(USED_DATEFMT) for a in next_date_list],
             last=[a.strftime(USED_DATEFMT) for a in last_date_list],
