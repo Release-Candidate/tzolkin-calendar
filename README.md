@@ -49,6 +49,14 @@ Mayan Glyphs and Unicode: [Roadmap to the SMP](https://www.unicode.org/roadmaps/
 
 ## Installation and Usage
 
+There are 2 Jupyter Notebooks online:
+
+Interactive Tzolk’in converter:
+[![Binder tzolkin-calendar Notebook](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calendar.ipynb)
+
+The Usage of the module tzolkin-calendar in your code:
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calender%20Python%20Module.ipynb)
+
 ### Prerequisites
 
 You need Python, at least version 3.9 to be able to use tzolkin-calendar. You can
@@ -119,7 +127,7 @@ You should now see something like:
 
 #### Using the Python Module in Your Programs
 
-ASA
+See the other Jupyter Notebook: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calender%20Python%20Module.ipynb)
 
 ### More information
 
