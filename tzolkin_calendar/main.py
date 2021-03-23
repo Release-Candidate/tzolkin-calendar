@@ -15,9 +15,9 @@ import argparse
 import datetime
 import re
 import sys
-from typing import Optional, Tuple
+from typing import Dict, Optional, Tuple
 
-from tzolkin_calendar import USED_DATEFMT, TzolkinException
+from tzolkin_calendar import USED_DATEFMT, TzolkinDate, TzolkinException
 from tzolkin_calendar.calculate import makeLookUpTable, parseTzolkinName
 from tzolkin_calendar.commandline import parseCommandline
 
@@ -300,9 +300,20 @@ def __displayYear(cmdline_args: argparse.Namespace) -> None:
     """
     if cmdline_args.display_year:
         year_dict = makeLookUpTable()
-        key_string = ""
-        for key in year_dict:
-            key_string = " ".join([key_string, year_dict[key].__repr__()])
-            if key % 13 == 0:
-                print(key_string)
-                key_string = ""
+
+        __displayYearList(year_dict)
+
+
+################################################################################
+def __displayYearList(year_dict: Dict[int, TzolkinDate]) -> None:
+    """Display the list of Tzolkin days in a Tzolkin year.
+
+    Args:
+        year_dict (Dict[int, TzolkinDate]): The dictionary of days in a Tzolkin year.
+    """
+    key_string = ""
+    for key in year_dict:
+        key_string = " ".join([key_string, year_dict[key].__repr__()])
+        if key % 13 == 0:
+            print(key_string)
+            key_string = ""
