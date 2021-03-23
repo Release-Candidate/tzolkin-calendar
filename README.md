@@ -5,12 +5,12 @@ If you want to know more about the maya calendar systems, see [Links](#links).
 
 Information about the installation and usage you find at [Installation and Usage](#installation-and-usage)
 
+[![Binder tzolkin-calendar Notebook](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calendar.ipynb)
 [![MIT license badge](https://img.shields.io/github/license/Release-Candidate/tzolkin-calendar)](https://github.com/Release-Candidate/tzolkin-calendar/blob/main/LICENSE)
 [![Python version badge](https://img.shields.io/pypi/pyversions/buildnis)](https://www.python.org/downloads/)
 [![PIP version badge](https://img.shields.io/pypi/v/tzolkin-calendar)](https://pypi.org/project/tzolkin-calendar/)
 [![ReadTheDocs badge](https://readthedocs.org/projects/tzolkin-calendar/badge/?version=latest)](https://tzolkin-calendar.readthedocs.io/en/latest/?badge=latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Binder tzolkin-calendar Notebook](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calendar.ipynb)
 [more badges](#badges)
 
 ## Table of Contents <!-- omit in toc -->
@@ -72,7 +72,9 @@ More information about using pip you get at [pip Quickstart](https://pip.pypa.io
 
 #### Using the Jupyter Notebook
 
-You can test it online at [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calendar.ipynb)
+You can test it online at [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calendar.ipynb). You need to restart the kernel first
+by going to the menu and selecting **Kernel**->**Restart & Run All** to get the interactive
+sliders and input fields.
 
 You can get Information about Jupyter Notebooks at the [official site](https://jupyter-notebook.readthedocs.io/en/stable/)
 
