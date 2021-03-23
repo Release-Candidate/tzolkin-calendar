@@ -17,11 +17,12 @@ import re
 import sys
 from typing import Optional, Tuple
 
-from tzolkin_calendar import USED_DATEFMT, TzolkinException
+from tzolkin_calendar import USED_DATEFMT, TzolkinException, day_names
 from tzolkin_calendar.commandline import parseCommandline
 
 from .tzolkin import Tzolkin
 
+# Regexes to parse date strings, gregorian and Tzolkin dates.
 __gregorian_regex1 = re.compile(
     r"^([0-3]?[0-9])[\t .\-/]([0-1]?[0-9])[\t .\-/]([0-9][0-9][0-9][0-9])",
 )
@@ -30,7 +31,7 @@ __gregorian_regex2 = re.compile(
 )
 __gregorian_regex3 = re.compile(r"^([0-1]?[0-9])/([0-3]?[0-9])/([0-9][0-9][0-9][0-9])")
 __tzolkin_regex1 = re.compile(r"([0-1]?[0-9])[\t .\-/]([0-2]?[0-9])")
-__tzolkin_regex2 = re.compile(r"([0-1]?[0-9])[\t .\-/](\s+)")
+__tzolkin_regex2 = re.compile(r"([0-1]?[0-9])[\t .\-/](\S+)")
 
 
 ################################################################################
@@ -43,8 +44,6 @@ def main() -> None:
         date_str = " ".join(cmdline_args.date)
     else:
         date_str = cmdline_args.date
-
-    print("Parsing date {date}".format(date=date_str))
 
     parsed_date = __parseGregorian(date_str=date_str)
 
@@ -141,9 +140,33 @@ def __parseTzolkin(date_str: str) -> Tuple[int, int]:
     if result:
         tzolkin_number = int(result.group(1))
         tzolkin_day_name = result.group(2)
-        print(tzolkin_day_name)
+        tzolkin_day_number = __tzolkinName2NameNumber(tzolkin_day_name)
 
     return tzolkin_number, tzolkin_day_number
+
+
+###############################################################################
+def __tzolkinName2NameNumber(name_str: str) -> int:
+    """Parse the Tzolkin day name and return the corresponding day name number.
+
+    Args:
+        name_str (str): The name string to parse
+
+    Returns:
+        int: The day name number on success, 0 on errors.
+    """
+    ret_val = 0
+
+    if name_str.upper() in [a.upper() for a in day_names.values()]:
+        ret_val = Tzolkin.getNameNumberFromName(name_str)
+    else:
+        for num, name in day_names.items():
+            if "".join(
+                [a for a in name_str.upper() if a.isascii() and a.isalpha()]
+            ) == "".join([a for a in name.upper() if a.isascii() and a.isalpha()]):
+                ret_val: int = num
+
+    return ret_val
 
 
 ################################################################################

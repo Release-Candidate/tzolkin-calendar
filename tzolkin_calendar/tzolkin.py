@@ -403,7 +403,7 @@ class Tzolkin:
                 20).
         """
         for num, name in day_names.items():
-            if name == name_str:
+            if name.upper() == name_str.upper():
                 return num
 
         raise TzolkinException(
