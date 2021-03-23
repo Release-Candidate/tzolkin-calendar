@@ -83,7 +83,10 @@ def __date2Tzolkin(
     tzolkin_number, tzolkin_day_number = __parseTzolkin(date_str=date_str)
     if tzolkin_number * tzolkin_day_number != 0:
         __searchTzolkinDates(
-            cmd_line_parser, cmdline_args, date_str, tzolkin_number, tzolkin_day_number
+            cmd_line_parser,
+            cmdline_args,
+            date_str,
+            TzolkinDate(number=tzolkin_number, name=tzolkin_day_number),
         )
 
     return tzolkin_number, tzolkin_day_number
@@ -94,17 +97,15 @@ def __searchTzolkinDates(
     cmd_line_parser: argparse.ArgumentParser,
     cmdline_args: argparse.Namespace,
     date_str: str,
-    tzolkin_number: int,
-    tzolkin_day_number: int,
+    tzolkin_date: TzolkinDate,
 ) -> None:
-    """[summary]
+    """Search for gregorian dates with the same Tzolkin date as the given one.
 
     Args:
-        cmd_line_parser (argparse.ArgumentParser): [description]
-        cmdline_args (argparse.Namespace): [description]
-        date_str (str): [description]
-        tzolkin_number (int): [description]
-        tzolkin_day_number (int): [description]
+        cmd_line_parser (argparse.ArgumentParser): The command line parser object.
+        cmdline_args (argparse.Namespace): The object holding all command line arguments.
+        date_str (str): The Tzolkin date string to parse.
+        tzolkin_date (TzolkinDate): The Tzolkin date to search for.
     """
     try:
         if cmdline_args.start_date is not None:
@@ -113,7 +114,7 @@ def __searchTzolkinDates(
             ).date()
         else:
             start_date = datetime.date.today()
-        tzolkin = Tzolkin(number=tzolkin_number, name_number=tzolkin_day_number)
+        tzolkin = Tzolkin(number=tzolkin_date.number, name_number=tzolkin_date.name)
         if cmdline_args.list_size is None:
             __printTzolkin(start_date=start_date, tzolkin=tzolkin)
         else:
