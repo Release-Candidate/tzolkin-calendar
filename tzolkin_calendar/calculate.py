@@ -248,10 +248,13 @@ def tzolkin2gregorian(
 ) -> List[datetime.date]:
     """Return a list of dates having the same Tzolkin date as the given date `tzolkin`.
 
+    If `num_results` is smaller than 1, an empty list is returned.
+
     Args:
         tzolkin (TzolkinDate): The Tzolkin date to search for.
         start (datetime.date): The gregorian date to start the search from.
-        num_results (int, optional): The number of results to return. Defaults to 100.
+        num_results (int, optional): The number of results to return. If this is < 1,
+                                    an empty list is returned. Defaults to 100.
         forward (bool, optional): The direction in time to search. Either forward (if
         `forward` is `True`) or backwards (if `forward` is `False`). Defaults to True.
 
@@ -261,6 +264,8 @@ def tzolkin2gregorian(
                             `num_results`.
     """
     ret_val: List[datetime.date] = []
+    if num_results < 1:
+        return ret_val
     if forward:
         ret_val = [nextTzolkin(tzolkin=tzolkin, starting=start)]
         __forward(tzolkin, num_results, ret_val)

@@ -222,6 +222,8 @@ def __parseTzolkin(date_str: str) -> Tuple[int, int]:
         tzolkin_number = int(result.group(1))
         tzolkin_day_number = int(result.group(2))
 
+        return tzolkin_number, tzolkin_day_number
+
     result = __tzolkin_regex2.search(date_str)
     if result:
         tzolkin_number = int(result.group(1))

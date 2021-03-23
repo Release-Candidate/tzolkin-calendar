@@ -248,7 +248,8 @@ class Tzolkin:
         after `start_date`.
         Searches forwards in time, starting with `start_date`.
         The number of elements in this returned list is set with `list_size`, that is
-        the number of dates to search and return.
+        the number of dates to search and return. If `list_size` < 1, an empty list is
+        returned.
 
         Args:
             start_date (datetime.date, optional): The date to start searching for a day
@@ -293,7 +294,8 @@ class Tzolkin:
         before`start_date`.
         Searches backwards in time, starting with `start_date`.
         The number of elements in this returned list is set with `list_size`, that is
-        the number of dates to search and return.
+        the number of dates to search and return. If `list_size` < 1, an empty list is
+        returned.
 
         Args:
             start_date (datetime.date, optional): The date to start searching for a day
