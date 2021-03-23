@@ -58,7 +58,7 @@ jobs:
       - name: Run tzolkin-calendar
         run: |
           cd $GITHUB_WORKSPACE
-          pipenv run python -m tzolkin_calendar
+          pipenv run python -m tzolkin_calendar -y
 
       # - uses: actions/upload-artifact@v2
       #   with:
@@ -94,7 +94,7 @@ jobs:
       - name: Run tzolkin-calendar Pkg
         run: |
           cd $GITHUB_WORKSPACE
-          python -m tzolkin_calendar
+          python -m tzolkin_calendar -y
 
       # - uses: actions/upload-artifact@v2
       #   with:
