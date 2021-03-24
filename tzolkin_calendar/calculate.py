@@ -9,6 +9,7 @@
 convert them to and from gregorian dates.
 
 Example:
+
 >>> import datetime
 >>> import tzolkin_calendar.calculate
 >>> tzolkin_calendar.calculate.gregorian2tzolkin(datetime.datetime.strptime("23.05.2014", "%d.%m.%Y"))
@@ -33,19 +34,6 @@ datetime.date(2021, 1, 5)
 >>> import tzolkin_calendar.calculate
 >>> tzolkin_calendar.calculate.tzolkin2gregorian(tzolkin_calendar.TzolkinDate(name="2", number="7"), forward=False, start=datetime.date.today())
 [datetime.date(2021, 10, 15), datetime.date(2021, 1, 28), datetime.date(2020, 5, 13), datetime.date(2019, 8, 27),
-
-Functions:
-    gregorian2tzolkin(date: datetime.date) -> TzolkinDate
-    tzolkin2gregorian(tzolkin: TzolkinDate, start: datetime.date,
-                num_results: int = 100, forward: bool = True) -> List[datetime.date]
-    nextTzolkin(tzolkin: TzolkinDate, starting: datetime.date) -> datetime.date
-    lastTzolkin(tzolkin: TzolkinDate, starting: datetime.date) -> datetime.date
-    getTzolkinDiff(start: TzolkinDate, end: TzolkinDate) -> int
-    getTzolkinDay(tzolkin: TzolkinDate) -> int
-    parseTzolkinName(name_str: str) -> int
-    calculateTzolkinName(start_name: int, to_add: int) -> int
-    calculateTzolkinNumber(start_number: int, to_add: int) -> int
-    makeLookUpTable() -> Dict[int, TzolkinDate]
 """
 
 from __future__ import annotations
@@ -94,21 +82,18 @@ def getTzolkinDiff(start: TzolkinDate, end: TzolkinDate) -> int:
 
     Example:
         getTzolkinDiff returns 12 for `start` = 4 Manikʼ and `end` = 3 Kawak
-                                (`end` - `start`)
-        ```
-        getTzolkinDiff(
-            start=tzolkin_calendar.TzolkinDate(number=4, name=7),
-            end=tzolkin_calendar.TzolkinDate(number=3, name=19),
-        ) == 12
-        ```
+
+        >>> getTzolkinDiff(
+                start=tzolkin_calendar.TzolkinDate(number=4, name=7),
+                end=tzolkin_calendar.TzolkinDate(number=3, name=19),
+            ) == 12
 
         getTzolkinDiff returns 250 for `start` = 8 Chuwen and `end` = 11 Imix
-        ```
-        getTzolkinDiff(
-            start=tzolkin_calendar.TzolkinDate(number=8, name=11),
-            end=tzolkin_calendar.TzolkinDate(number=11, name=1),
-        ) == 250
-        ```
+
+        >>> getTzolkinDiff(
+                start=tzolkin_calendar.TzolkinDate(number=8, name=11),
+                end=tzolkin_calendar.TzolkinDate(number=11, name=1),
+            ) == 250
 
     Args:
         start (TzolkinDate): The Tzolkin date to start the calculation from.
