@@ -40,6 +40,7 @@ More detailed Documentation can be found at [Read the Docs](https://tzolkin-cale
     - [Report Issues (Bugs and Feature Requests)](#report-issues-bugs-and-feature-requests)
     - [Changing the Documentation and Source Code](#changing-the-documentation-and-source-code)
     - [Github Documentation on Collaborating with Issues and Pull Requests](#github-documentation-on-collaborating-with-issues-and-pull-requests)
+    - [More Information](#more-information-1)
   - [License](#license)
   - [Badges](#badges)
     - [External Checks](#external-checks)
@@ -820,6 +821,10 @@ See [GitHub on Pull-Requests](https://docs.github.com/en/github/collaborating-wi
 ### Github Documentation on Collaborating with Issues and Pull Requests
 
 See GitHub's documentation about how to contribute for details: [Contributing at Github](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests)
+
+### More Information
+
+Detailed information is available at the [documentation website: Contributing](https://tzolkin-calendar.readthedocs.io/en/latest/contributing.html)
 
 ## License
 
