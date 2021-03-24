@@ -63,7 +63,7 @@ Interactive Tzolk’in converter:
 Command line program:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Command%20Line.ipynb)
 
-The Usage of the module tzolkin-calendar in your code:
+The usage of the module tzolkin-calendar in your code:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calender%20Python%20Module.ipynb)
 
 ### Prerequisites
@@ -132,7 +132,7 @@ Open it in Jupyter Notebook and run all cells, by going to the menu and using **
 
 You should now see something like:
 
-![Interactive view of Tzolk’in Calendar]([./tzolkin_calendar/doc/images/tzolkin_jupyter_page.png](https://raw.githubusercontent.com/Release-Candidate/tzolkin-calendar/main/tzolkin_calendar/doc/images/tzolkin_jupyter_page.png))
+![Interactive view of Tzolk’in Calendar](https://raw.githubusercontent.com/Release-Candidate/tzolkin-calendar/main/tzolkin_calendar/doc/images/tzolkin_jupyter_page.png))
 
 #### Using the Python Module in Your Programs
 
