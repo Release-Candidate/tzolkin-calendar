@@ -5,6 +5,8 @@ If you want to know more about the maya calendar systems, see [Links](#links).
 
 Information about the installation and usage you find at [Installation and Usage](#installation-and-usage)
 
+More detailed Documentation can be found at [Read the Docs](https://tzolkin-calendar.readthedocs.io/en/latest/)
+
 [![Binder tzolkin-calendar Notebook](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calendar.ipynb)
 [![MIT license badge](https://img.shields.io/github/license/Release-Candidate/tzolkin-calendar)](https://github.com/Release-Candidate/tzolkin-calendar/blob/main/LICENSE)
 [![Python version badge](https://img.shields.io/pypi/pyversions/buildnis)](https://www.python.org/downloads/)
