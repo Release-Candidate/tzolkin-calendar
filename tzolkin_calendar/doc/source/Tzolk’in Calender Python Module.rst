@@ -206,7 +206,7 @@ constructor, we get a ``TzolkinException``.
 
        TzolkinException: -5 is not a valid Tzolkin day name number, it must be between 1 and 20 (including 1 and 20)
 
-These Tzolk’in day numbers and names can be accessed using the mthods
+These Tzolk’in day numbers and names can be accessed using the methods
 ``getDayNumber``, ``getDayName`` and ``getDayNameNumber``.
 
 .. code:: python
@@ -565,7 +565,7 @@ Lets calculate the difference in days between ‘6 Muluk’ and ‘12 Men’.
 
 
 
-And using ``getDayTimedelta``, which returnes a ``datetime.timedelta``
+And using ``getDayTimedelta``, which returns a ``datetime.timedelta``
 object.
 
 .. code:: python

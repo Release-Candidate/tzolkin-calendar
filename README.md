@@ -1,7 +1,7 @@
 # tzolkin-calendar - Converter for Maya Tzolk’in Dates
 
-This program converts mayan Tzolk’in dates to gregorian dates and vice versa.
-If you want to know more about the maya calendar systems, see [Links](#links).
+This program converts mayan Tzolk’in dates to Gregorian dates and vice versa.
+If you want to know more about the Maya calendar systems, see [Links](#links).
 
 Information about the installation and usage you find at [Installation and Usage](#installation-and-usage)
 
@@ -117,7 +117,7 @@ To get the version of `tzolkin_calendar`, use the argument `--version`
     tzolkin-calendar 0.9.3
 ```
 
-The argument `--help` displays a short usage text, we go through all options in the follwing parts.
+The argument `--help` displays a short usage text, we go through all options in the following parts.
 
 ```python
 ! python -m tzolkin_calendar --help
@@ -440,7 +440,7 @@ tzolkin.Tzolkin.fromDateString("24=03*2021", fmt="%d=%m*%Y")
 
 ##### Set Tzolk’in Dates
 
-You can set the `Tzolkin` instance to a Tzolk’in Date using it's constructor. The construcotr takes the Tzolk’in day number (between 1 and 13 including 1 and 13) and either a Tzolk’in day name or the number of the Tzolk’in day name (between 1 and 20 , including 1 and 20).
+You can set the `Tzolkin` instance to a Tzolk’in Date using it's constructor. The constructor takes the Tzolk’in day number (between 1 and 13 including 1 and 13) and either a Tzolk’in day name or the number of the Tzolk’in day name (between 1 and 20 , including 1 and 20).
 
 To get a dictionary of Tzolk’in day names and numbers, look at `tzolkin.day_names`.
 
@@ -490,7 +490,7 @@ tzolkin.Tzolkin(number=3, name_number=-5)
     TzolkinException: -5 is not a valid Tzolkin day name number, it must be between 1 and 20 (including 1 and 20)
 ```
 
-These Tzolk’in day numbers and names can be accessed using the mthods `getDayNumber`, `getDayName` and `getDayNameNumber`.
+These Tzolk’in day numbers and names can be accessed using the methods `getDayNumber`, `getDayName` and `getDayNameNumber`.
 
 ```python
 # Set the Tzolk’in date to '12 Kimi'.
@@ -720,7 +720,7 @@ start_tzolkin.getDayDiff(end_tzolkin)
     6
 ```
 
-And using `getDayTimedelta`, which returnes a `datetime.timedelta` object.
+And using `getDayTimedelta`, which returns a `datetime.timedelta` object.
 
 ```python
 start_tzolkin.getDayTimedelta(end_tzolkin)

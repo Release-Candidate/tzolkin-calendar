@@ -34,7 +34,7 @@ To get the version of ``tzolkin_calendar``, use the argument
 
 
 The argument ``--help`` displays a short usage text, we go through all
-options in the follwing parts.
+options in the following parts.
 
 .. code:: shell
 
