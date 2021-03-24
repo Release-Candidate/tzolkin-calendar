@@ -32,30 +32,6 @@ class Tzolkin:
     """A representation of a Tzolkin date.
     Use to do calculations and conversions from and to gregorian dates to Tzolkin dates
     and search for days.
-
-    Attributes:
-        `fromDate`: Convert a gregorian date to a Tzolkin date.
-        `fromDateString`: Convert a gregorian date to a Tzolkin date.
-        `fromIsoFormat`: Convert a gregorian date to a Tzolkin date.
-        `fromToday`: The Tzolkin date of today, the current day.
-        `getTzolkinDate`: Return a `TzolkinDate`instance to use with
-                                    `tzolkin_calendar.calculate` functions.
-        `getDayNumber`: Return the Tzolkin day number, between 1 and 13.
-        `getDayName`: Return the Tzolkin day name.
-        `getDayNameNumber`: Return the Tzolkin day name as a number between 1 and 20.
-        `getTzolkinYearDay`: Return the number of the dy in the Tzolkin year.
-        `getNextDate`: Return the next day with the same Tzolkin date.
-        `getNextDateList`: Return a list of days with the same Tzolkin date.
-                            Search forward in time.
-        `getLastDate`: Return the last day with the same Tzolkin date.
-        `getLastDateList`: Return a list of days with the same Tzolkin date.
-                            Search backwards in time.
-        `addDays`: Add a number of days to the Tzolkin date.
-        `addTimedelta`: Add a number of days to the Tzolkin date.
-        `getDayDiff`: Return the difference in days until the given Tzolkin date.
-        `getDayTimedelta`:Return the difference in days until the given Tzolkin date.
-        `getNameNumberFromName`: Return the number of the given Tzolkin day name, between 1 and 20.
-        `getTzolkinCalendar`: Return a list of all (260) Tzolkin dates.
     """
 
     ############################################################################

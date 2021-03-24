@@ -12,7 +12,7 @@ from typing import Dict, Literal, NamedTuple
 
 __all__ = ["calculate", "tzolkin"]
 
-VERSION: str = "0.9.3"
+VERSION: str = "0.9.4"
 
 
 ################################################################################

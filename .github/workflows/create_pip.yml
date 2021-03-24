@@ -42,10 +42,10 @@ jobs:
           cd $GITHUB_WORKSPACE
           python -m pipenv install --dev
 
-      # - name: Generate Documentation
-      #   run: |
-      #     cd $GITHUB_WORKSPACE
-      #     cd ./tzolkin_calendar/doc && pipenv run make html
+      - name: Generate Documentation
+        run: |
+          cd $GITHUB_WORKSPACE
+          cd ./tzolkin_calendar/doc && pipenv run make html
 
       - name: Build Package
         run: |

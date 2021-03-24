@@ -1,0 +1,7 @@
+include LICENSE
+include CHANGELOG.md
+
+graft tzolkin_calendar/doc/html
+graft tzolkin_calendar/doc/doctrees
+
+global-exclude *.py[cod]

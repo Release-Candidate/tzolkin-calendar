@@ -130,3 +130,6 @@ dmypy.json
 
 # VS Code Workspace
 *.code-workspace
+tzolkin_calendar/doc/doctrees/**
+tzolkin_calendar/doc/doctrees/index.doctree
+tzolkin_calendar/doc/html/**
