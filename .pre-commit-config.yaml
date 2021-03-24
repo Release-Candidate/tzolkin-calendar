@@ -6,7 +6,6 @@ repos:
     hooks:
       - id: check-yaml
       - id: end-of-file-fixer
-      - id: trailing-whitespace
       - id: check-json
       - id: check-merge-conflict
       - id: mixed-line-ending

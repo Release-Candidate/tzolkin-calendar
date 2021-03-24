@@ -22,6 +22,9 @@ Information about the installation and usage you find at [Installation and Usage
     - [Installation](#installation)
     - [Usage](#usage)
       - [Using the Command-Line Client](#using-the-command-line-client)
+        - [Converting Gregorian Dates to Tzolk’in Dates](#converting-gregorian-dates-to-tzolkin-dates)
+        - [Searching Tzolk’in Dates](#searching-tzolkin-dates)
+        - [Print all Tzolk’in Dates in a Tzolk’in Year](#print-all-tzolkin-dates-in-a-tzolkin-year)
       - [Using the Jupyter Notebook](#using-the-jupyter-notebook)
       - [Using the Python Module in Your Programs](#using-the-python-module-in-your-programs)
         - [Import the Module](#import-the-module)
@@ -88,6 +91,214 @@ More information about using pip you get at [pip Quickstart](https://pip.pypa.io
 #### Using the Command-Line Client
 
 There is an online interactive Jupyter version: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Command%20Line.ipynb)
+
+We start the command line client of `tzolkin-calendar` using `python -m`: beware of the underscore (`_`)
+
+```python
+! python -m tzolkin_calendar
+```
+
+``` text
+    Gregorian "24.03.2021" is "3 Men" as Tzolk’in
+```
+
+As default, if no argument is given, the Tzolk’in date of the current day ('today' ins the 24th of March, 2021) is printed.
+
+To get the version of `tzolkin_calendar`, use the argument `--version`
+
+```python
+! python -m tzolkin_calendar --version
+```
+
+``` text
+    tzolkin-calendar 0.9.3
+```
+
+The argument `--help` displays a short usage text, we go through all options in the follwing parts.
+
+```python
+! python -m tzolkin_calendar --help
+```
+
+``` text
+    usage: python -m tzolkin_calendar [-h] [--version] [-l LIST_LENGTH]
+                                      [-s START_DATE] [-y]
+                                      [DATE ...]
+    
+    A Tzolk’in date converter and calculator.
+    
+    Examples:
+    
+    To get the Tzolk’in date of today:
+    
+     python -m tzolkin_calendar
+    
+    To get the next and last gregorian dates with a Tzolk’in date of '8 Chuwen' you can use either:
+    
+     python -m tzolkin_calendar 8 Chuwen
+     python -m tzolkin_calendar 8/Chuwen
+     python -m tzolkin_calendar 8.Chuwen
+     python -m tzolkin_calendar 8-Chuwen
+     python -m tzolkin_calendar 8 11
+     python -m tzolkin_calendar 8/11
+     python -m tzolkin_calendar 8.11
+     python -m tzolkin_calendar 8-11
+    
+    To get the Tzolk’in date of the 16th april 2016, use one of these date formats:
+    
+        python -m tzolkin_calendar 16.04.2016
+        python -m tzolkin_calendar 16-04-2016
+        python -m tzolkin_calendar 16 04 2016
+        python -m tzolkin_calendar 2016.04.16
+        python -m tzolkin_calendar 2016-04-16
+        python -m tzolkin_calendar 2016/04/16
+        python -m tzolkin_calendar 2016 04 16
+        python -m tzolkin_calendar 04/16/2016
+    
+    positional arguments:
+      DATE                  The date to parse and convert. Either a Tzolk’in date or a gregorian date can be given. The default is the date of today.
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+      --version             show program's version number and exit
+      -l LIST_LENGTH, --list LIST_LENGTH
+                            Display a list of dates with the given Tzolk’in date instead of a single one. The length of the list is LIST_LENGTH.
+      -s START_DATE, --start START_DATE
+                            The start date to begin the search for the dates with the same Tzolk’in date. The same formatting rules apply as for the main argument DATE.
+      -y, --year            Print all dates of a Tzolk’in year.
+    
+    See website https://github.com/Release-Candidate/tzolkin_calendar for a detailed description.
+```
+
+##### Converting Gregorian Dates to Tzolk’in Dates
+
+To get the Tzolk’in date of a Gregorian date use the Gregorian date as the main argument to `tzolkin_calendar`.
+
+E.g. to get the Tzolk’in date of the 18th of May, 1974, which is "12 Akʼbʼal"
+
+```python
+! python -m tzolkin_calendar 18.05.1974
+```
+
+``` text
+    Gregorian "18.05.1974" is "12 Akʼbʼal" as Tzolk’in
+```
+
+Many date format conventions are supported, any of these work (and result in the 18th of May, 1974):  
+DD.MM.YYYY - 18.05.1974  
+DD-MM-YYYY - 18-05-1974  
+DD MM YYYY - 18 05 1974  
+YYYY.MM.DD - 1974.05.18  
+YYYY-MM-DD - 1974-05-18  
+YYYY/MM/DD - 1974/05/18  
+YYYY MM DD - 1974 05 18  
+MM/DD/YYYY - 05/18/1974
+
+```python
+! python -m tzolkin_calendar 05/18/1974
+```
+
+``` text
+    Gregorian "05/18/1974" is "12 Akʼbʼal" as Tzolk’in
+```
+
+##### Searching Tzolk’in Dates
+
+To search for Gregorian Dates to a given Tzolk’in date, input the Tzolk’in date to search for.
+
+As default the search is started today (the 24th of March, 2021). So, we search for "13 Lamat"
+
+```python
+! python -m tzolkin_calendar 13 Lamat
+```
+
+``` text
+    Tzolk’in date "13 Lamat" next date is "24.08.2021", last date has been "07.12.2020"
+```
+
+The next gregorian date with a Tzolk’in date of "12 Lamat" after today (the 24th of March 2021) is the 24th od August, 2021, the last gregorian date before today has been the 7th of December 2020.
+
+We again can use many formats to pass as Tzolk’in dates:  
+DD NNNN - 13 Lamat  
+DD/NNNN - 13/Lamat  
+DD.NNNN - 13.Lamat  
+DD-NNNN - 13-Lamat  
+
+Instead of the name, we can also use the number of the day name (between 1 and 20), so instead of "Lamat" we could use the number 8. The valid formats are again (with or without leading zeroes).  
+DD NN - 13 8  
+DD/NN - 13/8  
+DD.NN - 13.8  
+DD-NN - 13-8  
+
+We can also search starting at other days than today, so lets start the search at the 18th of May 1974, this is the argument to `--start`
+
+```python
+! python -m tzolkin_calendar 13 Lamat --start 18.05.1974
+```
+
+``` text
+    Tzolk’in date "13 Lamat" next date is "31.08.1974", last date has been "14.12.1973"
+```
+
+Now the search returned the 31th of August, 1974 as the next and the 14th of December 1974 as the last Gregorian date with
+the same Tzolk’in date.
+
+We can also search for more than one date in the future and the past, by using the argument `--list`, which is the number of Gregorian dates to return. Lets search for 5 Gregorian dates with a Tzolk’in date of "13 Lamat", starting at the 18th of May, 1974.
+
+```python
+! python -m tzolkin_calendar 13 Lamat --start 18.05.1974 --list 5
+```
+
+``` text
+    Tzolk’in date "13 Lamat"
+     next dates are ['31.08.1974', '18.05.1975', '02.02.1976', '19.10.1976', '06.07.1977']
+     last dates have been ['14.12.1973', '29.03.1973', '12.07.1972', '26.10.1971', '08.02.1971']
+```
+
+So we're getting 5 Gregorian dates after and before the 18th of May, 1974.
+
+Without an `--start` argument, we start the search today (the 24th of March, 2021).
+
+```python
+! python -m tzolkin_calendar 13 Lamat --list 5
+```
+
+``` text
+    Tzolk’in date "13 Lamat"
+     next dates are ['24.08.2021', '11.05.2022', '26.01.2023', '13.10.2023', '29.06.2024']
+     last dates have been ['07.12.2020', '22.03.2020', '06.07.2019', '19.10.2018', '01.02.2018']
+```
+
+We can make the list as long as we want, but if the list would be too long, we ran out of the valid calendar days.
+
+```python
+! python -m tzolkin_calendar 13 Lamat --list 10000
+```
+
+```python
+    Traceback (most recent call last):
+      ...
+      File "./tzolkin_calendar/calculate.py", line 432, in lastTzolkin
+        return starting + day_diff_delta
+    OverflowError: date value out of range
+```
+
+##### Print all Tzolk’in Dates in a Tzolk’in Year
+
+To get a list of all 260 Tzolk’in dates in a Tzolk’in year, we use the argument `--year`:
+
+```python
+! python -m tzolkin_calendar --year
+```
+
+```text
+     1 Imix 2 Ikʼ 3 Akʼbʼal 4 Kʼan 5 Chikchan 6 Kimi 7 Manikʼ 8 Lamat 9 Muluk 10 Ok 11 Chuwen 12 Ebʼ 13 Bʼen
+     1 Ix
+     ...
+                                                                                                  13 Manikʼ
+     1 Lamat 2 Muluk 3 Ok 4 Chuwen 5 Ebʼ 6 Bʼen 7 Ix 8 Men 9 Kʼibʼ 10 Kabʼan 11 Etzʼnabʼ 12 Kawak 13 Ajaw
+    Gregorian "24.03.2021" is "3 Men" as Tzolk’in
+```
 
 #### Using the Jupyter Notebook
 
