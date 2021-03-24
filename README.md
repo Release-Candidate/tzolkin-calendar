@@ -55,10 +55,13 @@ Mayan Glyphs and Unicode: [Roadmap to the SMP](https://www.unicode.org/roadmaps/
 
 ## Installation and Usage
 
-There are 2 Jupyter Notebooks online at [Binder](https://mybinder.org/):
+There are 3 Jupyter Notebooks online at [Binder](https://mybinder.org/):
 
 Interactive Tzolk’in converter:
 [![Binder tzolkin-calendar Notebook](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calendar.ipynb)
+
+Command line program:
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Command%20Line.ipynb)
 
 The Usage of the module tzolkin-calendar in your code:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calender%20Python%20Module.ipynb)
@@ -83,6 +86,8 @@ More information about using pip you get at [pip Quickstart](https://pip.pypa.io
 ### Usage
 
 #### Using the Command-Line Client
+
+There is an online interactive Jupyter version: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Command%20Line.ipynb)
 
 #### Using the Jupyter Notebook
 
@@ -127,7 +132,7 @@ Open it in Jupyter Notebook and run all cells, by going to the menu and using **
 
 You should now see something like:
 
-![Voila page of Tzolk’in Calendar](./tzolkin_calendar/doc/images/tzolkin_jupyter_page.png)
+![Interactive view of Tzolk’in Calendar]([./tzolkin_calendar/doc/images/tzolkin_jupyter_page.png](https://raw.githubusercontent.com/Release-Candidate/tzolkin-calendar/main/tzolkin_calendar/doc/images/tzolkin_jupyter_page.png))
 
 #### Using the Python Module in Your Programs
 
