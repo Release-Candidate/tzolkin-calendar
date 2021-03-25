@@ -51,7 +51,7 @@ jobs:
       - name: Install dependencies using pipenv ${{ matrix.python-version }}
         run: |
           cd $GITHUB_WORKSPACE
-          python -m pipenv --python ${{ matrix.python-version }} install --dev
+          python -m pipenv install --dev
 
       - name: Run Tests ${{ matrix.python-version }}
         run: |
@@ -108,9 +108,9 @@ jobs:
       - name: Install dependencies using pipenv ${{ matrix.python-version }}
         run: |
           cd $GITHUB_WORKSPACE
-          python -m pipenv --python ${{ matrix.python-version }} install --dev
-          python -m pipenv --python ${{ matrix.python-version }} install tzolkin-calendar
-          python -m pipenv --python ${{ matrix.python-version }} update
+          python -m pipenv install --dev
+          python -m pipenv install tzolkin-calendar
+          python -m pipenv update
 
       - name: Run Tests ${{ matrix.python-version }}
         run: |
