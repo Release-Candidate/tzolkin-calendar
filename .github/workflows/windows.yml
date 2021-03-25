@@ -18,49 +18,47 @@ on:
 jobs:
   build-src:
     runs-on: windows-2019
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9]
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: "3.8"
-      - uses: actions/setup-java@v1
-        with:
-          java-version: "13" # The JDK version to make available on the path.
-          java-package: jdk
+          python-version: ${{ matrix.python-version }}
 
-      - name: Cache pip
-        uses: actions/cache@v2
-        with:
-          path: ~\AppData\Local\pip\Cache
-          key: windows-2019-pip-pipenv
-          restore-keys: |
-            windows-2019-pip-pipenv
+      # - name: Cache pip ${{ matrix.python-version }}
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~\AppData\Local\pip\Cache
+      #     key: windows-2019-${{ matrix.python-version }}-pip-pipenv
+      #     restore-keys: |
+      #       windows-2019-${{ matrix.python-version }}-pip-pipenv
 
-      - name: Cache pipenv
-        uses: actions/cache@v2
-        with:
-          path: ~/.virtualenvs
-          key: windows-2019-pipenv-${{ hashFiles('Pipfile.lock') }}
-          restore-keys: |
-            windows-2019-pipenv-
+      # - name: Cache pipenv ${{ matrix.python-version }}
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.virtualenvs
+      #     key: windows-2019-pipenv-${{ matrix.python-version }}-${{ hashFiles('Pipfile.lock') }}
+      #     restore-keys: |
+      #       windows-2019-${{ matrix.python-version }}-pipenv-
 
-      - name: Setup pipenv
+      - name: Setup pipenv ${{ matrix.python-version }}
         run: python -m pip install --upgrade pipenv
 
       - name: Install dependencies using pipenv
         run: python -m pipenv install --dev
 
-      # - name: Check if Working
+      # - name: Check if Working ${{ matrix.python-version }}
       #   shell: cmd
       #   run: |
       #     call pipenv shell
       #     python -m tzolkin_calendar --version
 
-      - name: Run tzolkin-calendar
+      - name: Run tzolkin-calendar ${{ matrix.python-version }}
         run: |
-          $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
           pipenv run python -m tzolkin_calendar -y
 
       # - uses: actions/upload-artifact@v2
@@ -71,36 +69,39 @@ jobs:
 
   use-package:
     runs-on: windows-2019
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9]
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: "3.8"
+          python-version: ${{ matrix.python-version }}
 
-      - name: Cache pip
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: windows-2019-pip-tzolkin-calendar
-          restore-keys: |
-            windows-2019-pip-tzolkin-calendar
+      # - name: Cache pip ${{ matrix.python-version }}
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.cache/pip
+      #     key: windows-2019-${{ matrix.python-version }}-pip-tzolkin-calendar
+      #     restore-keys: |
+      #       windows-2019-${{ matrix.python-version }}-pip-tzolkin-calendar
 
-      - name: Install tzolkin-calendar package
+      - name: Install tzolkin-calendar package ${{ matrix.python-version }}
         run: python -m pip install --upgrade tzolkin-calendar
 
-      - name: Delete Source
+      - name: Delete Source ${{ matrix.python-version }}
         run: |
           Remove-Item tzolkin_calendar -Recurse
 
-      # - name: Check if Pkg Working
+      # - name: Check if Pkg Working ${{ matrix.python-version }}
       #   run: |
       #     python -m tzolkin_calendar --version
 
-      - name: Run tzolkin-calendar Pkg
+      - name: Run tzolkin-calendar Pkg ${{ matrix.python-version }}
         run: |
-          $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
           python -m tzolkin_calendar -y
+
       # - uses: actions/upload-artifact@v2
       #  if: ${{ always() }}
       #   with:
