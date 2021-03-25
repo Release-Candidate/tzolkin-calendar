@@ -17,14 +17,14 @@ import sys
 
 sys.path.insert(0, os.path.abspath("../../../"))
 
-import tzolkin_calendar
+from tzolkin_calendar import VERSION  # noqa: E402
 
 # -- Project information -----------------------------------------------------
 
 project = "tzolkin-calendar"
 copyright = "2021, Release-Candidate"
 author = "Release-Candidate"
-version = tzolkin_calendar.VERSION
+version = VERSION
 
 # The full version, including alpha/beta/rc tags
 release = version

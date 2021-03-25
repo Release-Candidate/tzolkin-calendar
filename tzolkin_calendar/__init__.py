@@ -8,7 +8,8 @@
 
 from __future__ import annotations
 
-from typing import Dict, Literal, NamedTuple
+import sys
+from typing import Dict, NamedTuple
 
 __all__ = ["calculate", "tzolkin"]
 
@@ -23,33 +24,36 @@ class TzolkinException(Exception):
     """
 
 
-TzolkinName = Literal[
-    "Imix",
-    "Ikʼ",
-    "Akʼbʼal",
-    "Kʼan",
-    "Chikchan",
-    "Kimi",
-    "Manikʼ",
-    "Lamat",
-    "Muluk",
-    "Ok",
-    "Chuwen",
-    "Ebʼ",
-    "Bʼen",
-    "Ix",
-    "Men",
-    "Kʼibʼ",
-    "Kabʼan",
-    "Etzʼnabʼ",
-    "Kawak",
-    "Ajaw",
-]
+if sys.version_info.major >= 3 and sys.version_info.minor >= 9:
+    from typing import Literal
 
-TzolkinNumber = Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-TzolkinNameNumber = Literal[
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-]
+    TzolkinName = Literal[
+        "Imix",
+        "Ikʼ",
+        "Akʼbʼal",
+        "Kʼan",
+        "Chikchan",
+        "Kimi",
+        "Manikʼ",
+        "Lamat",
+        "Muluk",
+        "Ok",
+        "Chuwen",
+        "Ebʼ",
+        "Bʼen",
+        "Ix",
+        "Men",
+        "Kʼibʼ",
+        "Kabʼan",
+        "Etzʼnabʼ",
+        "Kawak",
+        "Ajaw",
+    ]
+
+    TzolkinNumber = Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    TzolkinNameNumber = Literal[
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+    ]
 
 
 ################################################################################
