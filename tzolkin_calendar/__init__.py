@@ -55,6 +55,10 @@ if sys.version_info.major >= 3 and sys.version_info.minor >= 9:
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
     ]
 
+    DayNumbers = Dict[TzolkinNumber, str]
+    DayNames = Dict[TzolkinNameNumber, str]
+    DayGlyphs = Dict[TzolkinNameNumber, str]
+
 
 ################################################################################
 class TzolkinDate(NamedTuple):
@@ -94,7 +98,6 @@ REFERENCE_DATES = {
 USED_DATEFMT = "%d.%m.%Y"
 
 # The numbers of a Tzolkin day, from 1 to 13 (including 1 and 13)
-DayNumbers = Dict[TzolkinNumber, str]
 day_numbers = {
     1: "1",
     2: "2",
@@ -112,7 +115,6 @@ day_numbers = {
 }
 
 # The 20 names of a Tzolkin day, from Imix to Ajaw (including Imix and Ajaw)
-DayNames = Dict[TzolkinNameNumber, str]
 day_names = {
     1: "Imix",
     2: "Ikʼ",
@@ -138,7 +140,6 @@ day_names = {
 
 # The 20 glyphs for the Tzolkin day names, from Imix to Ajaw (including Imix and Ajaw).
 #
-DayGlyphs = Dict[TzolkinNameNumber, str]
 day_glyphs = {
     1: "\U000153E2",
     2: "\U000153E7",

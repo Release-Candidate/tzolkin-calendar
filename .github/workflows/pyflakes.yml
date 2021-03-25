@@ -41,6 +41,7 @@ jobs:
           pipenv run pyflakes tzolkin_calendar tests > pyflakes_out.txt 2>&1
 
       - uses: actions/upload-artifact@v2
+        if: ${{ always() }}
         with:
           name: Pyflakes Output
           path: pyflakes_out.txt

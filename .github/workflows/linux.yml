@@ -61,6 +61,7 @@ jobs:
           pipenv run python -m tzolkin_calendar -y
 
       # - uses: actions/upload-artifact@v2
+      #  if: ${{ always() }}
       #   with:
       #     name: Linux Buildnis Debug Log
       #     path: log_file.txt
@@ -97,6 +98,7 @@ jobs:
           python -m tzolkin_calendar -y
 
       # - uses: actions/upload-artifact@v2
+      #   if: ${{ always() }}
       #   with:
       #     name: Linux Buildnis Pkg Debug Log
       #     path: log_file.txt
