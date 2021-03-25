@@ -29,21 +29,21 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Cache pip ${{ matrix.python-version }}
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-${{ matrix.python-version }}-pip-pipenv
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.python-version }}-pip-pipenv
+      # - name: Cache pip ${{ matrix.python-version }}
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.cache/pip
+      #     key: ${{ runner.os }}-${{ matrix.python-version }}-pip-pipenv
+      #     restore-keys: |
+      #       ${{ runner.os }}-${{ matrix.python-version }}-pip-pipenv
 
-      - name: Cache pipenv ${{ matrix.python-version }}
-        uses: actions/cache@v2
-        with:
-          path: ~/.local/share/virtualenvs
-          key: ${{ runner.os }}-${{ matrix.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.python-version }}-pipenv-
+      # - name: Cache pipenv ${{ matrix.python-version }}
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.local/share/virtualenvs
+      #     key: ${{ runner.os }}-${{ matrix.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-${{ matrix.python-version }}-pipenv-
 
       - name: Setup pipenv ${{ matrix.python-version }}
         run: python -m pip install --upgrade pipenv
@@ -82,13 +82,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Cache pip ${{ matrix.python-version }}
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-${{ matrix.python-version }}-pip-tzolkin-calendar
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.python-version }}-pip-tzolkin-calendar
+      # - name: Cache pip ${{ matrix.python-version }}
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.cache/pip
+      #     key: ${{ runner.os }}-${{ matrix.python-version }}-pip-tzolkin-calendar
+      #     restore-keys: |
+      #       ${{ runner.os }}-${{ matrix.python-version }}-pip-tzolkin-calendar
 
       - name: Install tzolkin-calendar package
         run: python -m pip install --upgrade tzolkin-calendar
