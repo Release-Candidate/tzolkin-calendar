@@ -17,15 +17,17 @@ import sys
 
 sys.path.insert(0, os.path.abspath("../../../"))
 
+import tzolkin_calendar
 
 # -- Project information -----------------------------------------------------
 
 project = "tzolkin-calendar"
 copyright = "2021, Release-Candidate"
 author = "Release-Candidate"
+version = tzolkin_calendar.VERSION
 
 # The full version, including alpha/beta/rc tags
-release = "1.0.0"
+release = version
 
 
 # -- General configuration ---------------------------------------------------
@@ -78,7 +80,7 @@ html_show_sphinx = False
 html_theme_options = {
     "analytics_anonymize_ip": True,
     "logo_only": False,
-    "display_version": False,
+    "display_version": True,
     "prev_next_buttons_location": "both",
     "style_external_links": False,
     "vcs_pageview_mode": "",

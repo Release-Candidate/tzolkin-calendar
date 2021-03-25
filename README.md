@@ -98,7 +98,7 @@ There is an online interactive Jupyter version: [![Binder](https://mybinder.org/
 We start the command line client of `tzolkin-calendar` using `python -m`: beware of the underscore (`_`)
 
 ```python
-! python -m tzolkin_calendar
+% python -m tzolkin_calendar
 ```
 
 ``` text
@@ -110,7 +110,7 @@ As default, if no argument is given, the Tzolk’in date of the current day ('to
 To get the version of `tzolkin_calendar`, use the argument `--version`
 
 ```python
-! python -m tzolkin_calendar --version
+% python -m tzolkin_calendar --version
 ```
 
 ``` text
@@ -120,7 +120,7 @@ To get the version of `tzolkin_calendar`, use the argument `--version`
 The argument `--help` displays a short usage text, we go through all options in the following parts.
 
 ```python
-! python -m tzolkin_calendar --help
+% python -m tzolkin_calendar --help
 ```
 
 ``` text
@@ -180,7 +180,7 @@ To get the Tzolk’in date of a Gregorian date use the Gregorian date as the mai
 E.g. to get the Tzolk’in date of the 18th of May, 1974, which is "12 Akʼbʼal"
 
 ```python
-! python -m tzolkin_calendar 18.05.1974
+% python -m tzolkin_calendar 18.05.1974
 ```
 
 ``` text
@@ -198,7 +198,7 @@ YYYY MM DD - 1974 05 18
 MM/DD/YYYY - 05/18/1974
 
 ```python
-! python -m tzolkin_calendar 05/18/1974
+% python -m tzolkin_calendar 05/18/1974
 ```
 
 ``` text
@@ -212,7 +212,7 @@ To search for Gregorian Dates to a given Tzolk’in date, input the Tzolk’in d
 As default the search is started today (the 24th of March, 2021). So, we search for "13 Lamat"
 
 ```python
-! python -m tzolkin_calendar 13 Lamat
+% python -m tzolkin_calendar 13 Lamat
 ```
 
 ``` text
@@ -236,7 +236,7 @@ DD-NN - 13-8
 We can also search starting at other days than today, so lets start the search at the 18th of May 1974, this is the argument to `--start`
 
 ```python
-! python -m tzolkin_calendar 13 Lamat --start 18.05.1974
+% python -m tzolkin_calendar 13 Lamat --start 18.05.1974
 ```
 
 ``` text
@@ -249,7 +249,7 @@ the same Tzolk’in date.
 We can also search for more than one date in the future and the past, by using the argument `--list`, which is the number of Gregorian dates to return. Lets search for 5 Gregorian dates with a Tzolk’in date of "13 Lamat", starting at the 18th of May, 1974.
 
 ```python
-! python -m tzolkin_calendar 13 Lamat --start 18.05.1974 --list 5
+% python -m tzolkin_calendar 13 Lamat --start 18.05.1974 --list 5
 ```
 
 ``` text
@@ -263,7 +263,7 @@ So we're getting 5 Gregorian dates after and before the 18th of May, 1974.
 Without an `--start` argument, we start the search today (the 24th of March, 2021).
 
 ```python
-! python -m tzolkin_calendar 13 Lamat --list 5
+% python -m tzolkin_calendar 13 Lamat --list 5
 ```
 
 ``` text
@@ -275,7 +275,7 @@ Without an `--start` argument, we start the search today (the 24th of March, 202
 We can make the list as long as we want, but if the list would be too long, we ran out of the valid calendar days.
 
 ```python
-! python -m tzolkin_calendar 13 Lamat --list 10000
+% python -m tzolkin_calendar 13 Lamat --list 10000
 ```
 
 ```python
@@ -291,7 +291,7 @@ We can make the list as long as we want, but if the list would be too long, we r
 To get a list of all 260 Tzolk’in dates in a Tzolk’in year, we use the argument `--year`:
 
 ```python
-! python -m tzolkin_calendar --year
+% python -m tzolkin_calendar --year
 ```
 
 ```text
