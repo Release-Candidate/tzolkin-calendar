@@ -4,7 +4,7 @@ Installation
 Prerequisites
 -------------
 
-You need Python, at least version 3.9 to be able to use tzolkin-calendar. You can
+You need Python, at least version 3.8 to be able to use tzolkin-calendar. You can
 download it from `python.org <https://www.python.org/downloads/>`_.
 
 To install the package, you need pip, see [Installing pip](https://pip.pypa.io/en/stable/installing/).
@@ -22,7 +22,7 @@ install Python packages like tzolkin_calendar.
 Linux
 .....
 
-Use your distribution's package management system (apt, dnf, ...) to install Python 3.9 and pip.
+Use your distribution's package management system (apt, dnf, ...) to install at least Python 3.8 and pip.
 If your distribution'S official packages are too old, you can install from source from
 `python.org <https://www.python.org/downloads/>`_ or search for a newer package or repository.
 
@@ -47,7 +47,7 @@ Install the package using pip on a shell or command prompt:
     python -m pip install tzolkin-calendar
 
 
-Depending on your Python installation and/or OS, you may also need to call Python 3.9 using
+Depending on your Python installation and/or OS, you may also need to call Python 3.8 (or later) using
 
 .. code-block:: shell
 
@@ -57,7 +57,7 @@ or
 
 .. code-block:: shell
 
-    python3.9 -m pip install tzolkin-calendar
+    python3.8 -m pip install tzolkin-calendar
 
 
 If neither version works, the right Python executable is not in your ``PATH``.

@@ -24,7 +24,7 @@ class TzolkinException(Exception):
     """
 
 
-if sys.version_info.major >= 3 and sys.version_info.minor >= 9:
+if sys.version_info.major >= 3 and sys.version_info.minor >= 8:
     from typing import Literal
 
     TzolkinName = Literal[

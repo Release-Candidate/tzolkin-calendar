@@ -9,7 +9,7 @@ More detailed Documentation can be found at [Read the Docs](https://tzolkin-cale
 
 [![Binder tzolkin-calendar Notebook](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/tzolkin-calendar/main?filepath=Tzolk%E2%80%99in%20Calendar.ipynb)
 [![MIT license badge](https://img.shields.io/github/license/Release-Candidate/tzolkin-calendar)](https://github.com/Release-Candidate/tzolkin-calendar/blob/main/LICENSE)
-[![Python version badge](https://img.shields.io/pypi/pyversions/buildnis)](https://www.python.org/downloads/)
+[![Python version badge](https://img.shields.io/pypi/pyversions/tzolkin-calendar)](https://www.python.org/downloads/)
 [![PIP version badge](https://img.shields.io/pypi/v/tzolkin-calendar)](https://pypi.org/project/tzolkin-calendar/)
 [![ReadTheDocs badge](https://readthedocs.org/projects/tzolkin-calendar/badge/?version=latest)](https://tzolkin-calendar.readthedocs.io/en/latest/?badge=latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -74,7 +74,7 @@ The usage of the module tzolkin-calendar in your code:
 
 ### Prerequisites
 
-You need Python, at least version 3.9 to be able to use tzolkin-calendar. You can
+You need Python, at least version 3.8 to be able to use tzolkin-calendar. You can
 download it from [python.org](https://www.python.org/downloads/).
 
 To install the package, you need pip, see [Installing pip](https://pip.pypa.io/en/stable/installing/).
