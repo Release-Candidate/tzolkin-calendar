@@ -13,7 +13,7 @@ from typing import Dict, NamedTuple
 
 __all__ = ["calculate", "tzolkin"]
 
-VERSION: str = "0.9.9"
+VERSION: str = "0.9.10"
 
 
 ################################################################################
