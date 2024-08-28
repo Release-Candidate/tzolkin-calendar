@@ -1,5 +1,8 @@
 # tzolkin-calendar - Converter for Maya Tzolk’in Dates
 
+> [!WARNING]
+> This repository has been moved to [Codeberg: tzolkin-calendar](https://codeberg.org/Release-Candidate/tzolkin-calendar)
+
 This program converts mayan Tzolk’in dates to Gregorian dates and vice versa.
 If you want to know more about the Maya calendar systems, see [Links](#links).
 
